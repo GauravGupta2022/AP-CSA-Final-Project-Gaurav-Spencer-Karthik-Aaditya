@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 
 public class FileReaderClass {
 	private String textFileName;
@@ -27,11 +25,25 @@ public class FileReaderClass {
 			
 			FileReader fileReader = new FileReader(teacherFile);
 			BufferedReader reader = new BufferedReader(fileReader);
-			String line = reader.readLine();
+			String roomNumber = reader.readLine();
+			int numRows = Integer.parseInt(reader.readLine());
+			int numCols = Integer.parseInt(reader.readLine());
+
+			//Prining
+			System.out.println(roomNumber);
+			System.out.println(numRows);
+			System.out.println(numCols);
+
+			
 			reader.close();
 			
-			System.out.println(line);
-		} catch (Exception e) {}
+			
+		} catch (NumberFormatException e) {
+			System.out.println("There was error with INPUT!");
+		}
+		catch (Exception e) {
+			System.out.println("There was an error!");
+		}
 
 	}
 
