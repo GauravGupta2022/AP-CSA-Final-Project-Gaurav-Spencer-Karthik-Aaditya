@@ -27,7 +27,7 @@ public class Classroom{
     public void setDesks(){
       int x = 0;
     }
-    public void fullRandom(){
+    public void fullRandom(){//Creates a fully randomized seating chart
       int rand = 0;
       for(int r = 0; r < desks.length; r++){
         for(int c = 0; c < desks[0].length; c++){
@@ -43,7 +43,7 @@ public class Classroom{
       }
 
     }
-    public void medicalFrontPreference(){
+    public void medicalFrontPreference(){//Seats kids (with medical needs for it) at the front of the classroom
       ArrayList<Student> newList = new ArrayList<Student>();
       for (int i=0; i<studentList.size();i++){
         if (studentList.get(i).getMedicalFrontPreference()==true){//change var name
@@ -60,7 +60,7 @@ public class Classroom{
           }
         }
       }
-      public void medicalBackPreference(){
+      public void medicalBackPreference(){//Seats kids (with medical needs for it) at the back of the classroom
         ArrayList<Student> newList = new ArrayList<Student>();
         for (int i=0;i<studentList.size();i++){
           if (studentList.get(i).getMedicalBackPreference()==true){//change var name
@@ -77,10 +77,7 @@ public class Classroom{
           }
         }
       }
-      public void gradePreference(){
-        
-      }
-    public void singleRandom(){ //5.16.2024 Changed
+    public void singleRandom(){ //Assigns a random student to one desk
         int rand = 0;
         for (int r = 0; r < desks.length; r++){
             for (int c = 0; c < desks[0].length; c++){
@@ -96,7 +93,7 @@ public class Classroom{
             break;
         }
       }
-      public Student findStudentWithGrade(double num){
+      public Student findStudentWithGrade(double num){ //Finds a student in the grade of the num parameter
         for (int i=0;i<studentList.size();i++){
           if (studentList.get(i).getGrade()==num){
             return studentList.get(i);
@@ -104,7 +101,7 @@ public class Classroom{
         }
         return null;
       }
-      public void gradePreference(){ //5.16.2024 Changed
+      public void gradePreference(){ //Seats one student with the same grade next to one another
         double currGrade = 0;
         for (int row=0;row<desks.length;row++){
           for (int col=0;col<desks[0].length;col++){
@@ -135,7 +132,7 @@ public class Classroom{
           break;
         }
       }
-      public void personalPreference(){ //5.16.2024 Changed
+      public void personalPreference(){ //Seats one student (who was  selected by the original student) next to one another
         String currFriendID = "";
         for (int row=0;row<desks.length;row++){
           for (int col=0;col<desks[0].length;col++){
@@ -166,7 +163,7 @@ public class Classroom{
           break;
         }
       }
-      public Student findStudent(String givenID){
+      public Student findStudent(String givenID){ //Finds a student with a given ID number
         for (int i=0;i<studentList.size();i++){
           if (studentList.get(i).getID().equals(givenID)){
             return studentList.get(i);
