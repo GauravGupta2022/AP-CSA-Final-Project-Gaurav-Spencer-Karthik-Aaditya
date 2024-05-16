@@ -96,11 +96,50 @@ public class Classroom{
             break;
         }
       }
+      public Student findStudentWithGrade(double num){
+        for (int i=0;i<studentList.size();i++){
+          if (studentList.get(i).getGrade()==num){
+            return studentList.get(i);
+          }
+        }
+        return null;
+      }
+      public void gradePreference(){ //5.16.2024 Changed
+        double currGrade = 0;
+        for (int row=0;row<desks.length;row++){
+          for (int col=0;col<desks[0].length;col++){
+            if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
+              currGrade = desks[row][col].getStudent().getGrade();
+              if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
+                desks[row][col+1].seat(findStudentWithGrade(currGrade));
+                studentList.remove(findStudentWithGrade(currGrade));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row, col).equals("Left") && (col-1)>-1){
+                desks[row][col-1].seat(findStudentWithGrade(currGrade));
+                studentList.remove(findStudentWithGrade(currGrade));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row, col).equals("Down") && (row+1)<desks.length){
+                desks[row+1][col].seat(findStudentWithGrade(currGrade));
+                studentList.remove(findStudentWithGrade(currGrade));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row,col).equals("Up") && (row-1)>-1){
+                desks[row-1][col].seat(findStudentWithGrade(currGrade));
+                studentList.remove(findStudentWithGrade(currGrade));
+                break;
+              }
+            }
+          }
+          break;
+        }
+      }
       public void personalPreference(){ //5.16.2024 Changed
         String currFriendID = "";
         for (int row=0;row<desks.length;row++){
           for (int col=0;col<desks[0].length;col++){
-            if (desks[row][col]!=null && !isNearbyDeskEmpty(row, col).equals("")){
+            if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currFriendID = desks[row][col].getStudent().getFriendID();
               if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
                 desks[row][col+1].seat(findStudent(currFriendID));
