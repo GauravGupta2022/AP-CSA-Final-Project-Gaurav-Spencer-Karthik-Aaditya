@@ -80,20 +80,51 @@ public class Classroom{
       public void gradePreference(){
         
       }
-      public void personalPreference(){
+    public void singleRandom(){ //5.16.2024 Changed
+        int rand = 0;
+        for (int r = 0; r < desks.length; r++){
+            for (int c = 0; c < desks[0].length; c++){
+                if (desks[r][c]!=null){
+                    if (studentList.size()>0){
+                        rand = (int)Math.random()*studentList.size();
+                        desks[r][c].seat(studentList.get(rand));
+                        studentList.remove(rand);
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+      }
+      public void personalPreference(){ //5.16.2024 Changed
         String currFriendID = "";
         for (int row=0;row<desks.length;row++){
           for (int col=0;col<desks[0].length;col++){
-            if (desks[row][col]!=null){
+            if (desks[row][col]!=null && !isNearbyDeskEmpty(row, col).equals("")){
               currFriendID = desks[row][col].getStudent().getFriendID();
               if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
                 desks[row][col+1].seat(findStudent(currFriendID));
+                studentList.remove(findStudent(currFriendID));
+                break;
               }
-              else if  (isNearbyDeskEmpty(row, col).equals("Left") && (col-1)>-1){
-                desks[row][col-1].seat(find)
+              else if (isNearbyDeskEmpty(row, col).equals("Left") && (col-1)>-1){
+                desks[row][col-1].seat(findStudent(currFriendID));
+                studentList.remove(findStudent(currFriendID));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row, col).equals("Down") && (row+1)<desks.length){
+                desks[row+1][col].seat(findStudent(currFriendID));
+                studentList.remove(findStudent(currFriendID));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row,col).equals("Up") && (row-1)>-1){
+                desks[row-1][col].seat(findStudent(currFriendID));
+                studentList.remove(findStudent(currFriendID));
+                break;
               }
             }
           }
+          break;
         }
       }
       public Student findStudent(String givenID){
