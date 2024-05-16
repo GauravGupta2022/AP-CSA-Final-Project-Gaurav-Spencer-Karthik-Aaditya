@@ -1,3 +1,5 @@
-Hello
-Hola
-Bonjour
+Room Number (String)
+numRow = Number rows of desks (int)
+numCol = Number columns of desks (int)
+Total number of desks (int)
+Positioning of which desks are available (next numRow lines)
