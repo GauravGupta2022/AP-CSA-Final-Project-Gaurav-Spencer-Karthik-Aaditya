@@ -34,6 +34,8 @@ public class Main {
       //code
     }
     System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
+
+    panel.initialize(classroom.getNumRows(), classroom.getNumCols(), classroom.getID(), classroom.getName());
   }
 
 }
