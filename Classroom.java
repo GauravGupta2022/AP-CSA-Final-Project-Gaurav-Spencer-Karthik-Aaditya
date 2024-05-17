@@ -176,35 +176,35 @@ public class Classroom{
         if(desks[r][c] != null){
           if(r > 1 && r != desks.length-2 && c > 1 && c != desks[0].length -2){
             if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null) || (desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
-              result = "right";
+              result = "Right";
 
             }
             else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null) || (desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
-              result = "left";
+              result = "Left";
             }
             else if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null) || (desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
-              result = "up";
+              result = "Up";
             }
             else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null) || (desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
-              result = "down";
+              result = "Down";
             }
           }
           else if((r == 0 || r == 1) || (r== desks.length - 1 || r == desks.length - 2)){
             if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null) || (desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
-              result = "right";
+              result = "Right";
 
             }
             else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null) || (desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
-              result = "left";
+              result = "Left";
             }
 
           }
           else if((c == 0 || c ==1) || (c == desks[0].length - 1 || c == desks.length -2)){
              if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null) || (desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
-              result = "up";
+              result = "Up";
             }
             else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null) || (desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
-              result = "down";
+              result = "Down";
             }
         }
         
