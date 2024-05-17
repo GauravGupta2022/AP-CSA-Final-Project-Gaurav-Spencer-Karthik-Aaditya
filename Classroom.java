@@ -27,6 +27,16 @@ public class Classroom{
     public void setDesks(){
       int x = 0;
     }
+    public void reset(){
+      for(int r = 0; r < desks.length; r++){
+        for(int c = 0; c < desks[0].length; c++){
+          if(desks[r][c] != null){
+            studentList.add(desks[r][c].unseat());
+
+          }
+        }
+      }
+    }
     public void fullRandom(){//Creates a fully randomized seating chart
       int rand = 0;
       for(int r = 0; r < desks.length; r++){
