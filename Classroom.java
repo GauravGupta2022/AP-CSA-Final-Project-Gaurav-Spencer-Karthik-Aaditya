@@ -171,7 +171,7 @@ public class Classroom{
         }
         return null;
       }
-      /*public static String isNearbyDeskEmpty(int r, int c){
+      public String isNearbyDeskEmpty(int r, int c){
         String result = "";
         if(desks[r][c] != null){
           if(r > 1 && r != desks.length-2 && c > 1 && c != desks[0].length -2){
@@ -183,15 +183,34 @@ public class Classroom{
               result = "left";
             }
             else if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null) || (desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
-              result = "behind";
+              result = "up";
             }
             else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null) || (desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
-              result = "front";
+              result = "down";
             }
           }
-          else if()
+          else if((r == 0 || r == 1) || (r== desks.length - 1 || r == desks.length - 2)){
+            if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null) || (desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
+              result = "right";
+
+            }
+            else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null) || (desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
+              result = "left";
+            }
+
+          }
+          else if((c == 0 || c ==1) || (c == desks[0].length - 1 || c == desks.length -2)){
+             if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null) || (desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
+              result = "up";
+            }
+            else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null) || (desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
+              result = "down";
+            }
         }
+        
+       
       }
-    
-   */ 
-}  
+          return result;
+} 
+
+}
