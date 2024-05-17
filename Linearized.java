@@ -4,7 +4,7 @@ public Linearized() {
     initialize();
 }
 
-private void initialize(){
+private void initialize(int numRows, int numCols, String name, int ID){
   frame = new JFrame();
   frame.setTitle("GUI #1");
   frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
