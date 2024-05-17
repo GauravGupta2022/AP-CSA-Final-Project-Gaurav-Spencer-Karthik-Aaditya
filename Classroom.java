@@ -1,17 +1,73 @@
 
 import java.util.ArrayList;
 import java.lang.Math;
+
 public class Classroom{
+  
     private int deskCount;
     private int studentCount;
-    private Desk[][] desks = new Desk[20][20];
+    private Desk[][] desks;
+    private int numRows;
+    private int numCols;
     private int classNumber;
     private int periodNumber;
     private ArrayList<Student> studentList = new ArrayList<Student>();
+
+    public void setDeskCount(int deskCount) {
+      this.deskCount = deskCount;
+    }
+    public void setStudentCount(int studentCount) {
+      this.studentCount = studentCount;
+    }
+    public void setDesks(Desk[][] desks) {
+      this.desks = desks;
+    }
+    public void setNumRows(int numRows) {
+      this.numRows = numRows;
+    }
+    public void setNumCols(int numCols) {
+      this.numCols = numCols;
+    }
+    public void setClassNumber(int classNumber) {
+      this.classNumber = classNumber;
+    }
+    public void setPeriodNumber(int periodNumber) {
+      this.periodNumber = periodNumber;
+    }
+    public void setStudentList(ArrayList<Student> studentList) {
+      this.studentList = studentList;
+    }
+    public int getDeskCount() {
+      return deskCount;
+    }
+    public int getStudentCount() {
+      return studentCount;
+    }
+    public Desk[][] getDesks() {
+      return desks;
+    }
+    public int getNumRows() {
+      return numRows;
+    }
+    public int getNumCols() {
+      return numCols;
+    }
+    public int getClassNumber() {
+      return classNumber;
+    }
+    public int getPeriodNumber() {
+      return periodNumber;
+    }
+    public ArrayList<Student> getStudentList() {
+      return studentList;
+    }
+
     public Classroom (int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students){
       this.deskCount = deskCount;
       this.studentCount = studentCount;
       this.desks = desks;
+      numRows = desks.length;
+      numCols = desks[0].length;
       this.classNumber = classNumber;
       this.periodNumber = periodNumber;
       this.studentList = students;
@@ -90,7 +146,7 @@ public class Classroom{
                 desks[row][col+1].seat(findStudent(currFriendID));
               }
               else if  (isNearbyDeskEmpty(row, col).equals("Left") && (col-1)>-1){
-                desks[row][col-1].seat(find)
+                desks[row][col-1].seat(find);
               }
             }
           }

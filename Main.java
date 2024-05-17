@@ -6,15 +6,49 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.net.http.HttpRequest;
 
 public class Main {
   public static void main(String[] args) {
+    
     System.out.println("Start of program");
     //fileReader creation
-    FileReaderClass myFileReader = new FileReaderClass("myFile.txt");
-    myFileReader.parse();
+    try {
+			File teacherFile = new File("myFile.txt");
+			teacherFile.createNewFile();
+			
+			FileReader fileReader = new FileReader(teacherFile);
+			BufferedReader reader = new BufferedReader(fileReader);
+			
+			String roomNumber = reader.readLine();
+			String temp = reader.readLine();
+			if (temp.indexOf(" ")!=-1){
+				int numRows = Integer.parseInt(temp.substring(0, temp.indexOf(" ")));
+			}
+			int numCols = Integer.parseInt(reader.readLine());
+			int totalDesks = Integer.parseInt(reader.readLine());
+
+			//Prining
+			System.out.println(roomNumber);
+			System.out.println(numRows);
+			System.out.println(numCols);
+
+			
+			reader.close();
+			
+			
+		} catch (NumberFormatException e) {
+			System.out.println("There was error with INPUT!");
+		}
+		catch (Exception e) {
+			System.out.println("There was an error!");
+		}
+
+    //bob.initialize(classroom.getNumRows(), classroom.getNumCols(), )
+
     
 
+    ///START OF PROGRAM
     System.out.println("Welcome to Seating Plus!");
     Scanner input = new Scanner(System.in);
     Student myStudent = new Student();
