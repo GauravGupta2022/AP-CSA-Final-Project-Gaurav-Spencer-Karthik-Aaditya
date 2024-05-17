@@ -9,6 +9,7 @@ import java.io.FileWriter;
 
 public class Main {
   public static void main(String[] args) {
+    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     System.out.println("Start of program");
     //fileReader creation
     FileReaderClass myFileReader = new FileReaderClass("myFile.txt");
