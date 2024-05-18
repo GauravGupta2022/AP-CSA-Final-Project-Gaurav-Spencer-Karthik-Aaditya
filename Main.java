@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 
 public class Main {
   public static void main(String[] args) {
-    
+    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     System.out.println("Start of program");
     //fileReader creation
     try {
@@ -67,6 +67,8 @@ public class Main {
       //code
     }
     System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
+
+    panel.initialize(classroom.getNumRows(), classroom.getNumCols(), classroom.getID(), classroom.getName());
   }
 
 }

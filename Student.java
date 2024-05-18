@@ -7,6 +7,8 @@ public class Student {
    private boolean medicalFrontPreference;
    private boolean medicalBackPreference;
    private String friendID;
+   private int wantedRow;
+   private int wantedCol;
  
    public Student() {
      grade = 0.0;
@@ -16,6 +18,21 @@ public class Student {
      ID = "000000";
      medicalFrontPreference = false;
      medicalBackPreference = false;
+     friendID = "000000";
+     wantedRow = -1;
+     wantedCol = -1;
+   }
+   public int getWantedRow(){
+    return wantedRow;
+   }
+   public int getWantedCol(){
+    return wantedCol;
+   }
+   public void setWantedRow(int wantedRow){
+    this.wantedRow = wantedRow;
+   }
+   public void setWantedCol(int wantedCol){
+    this.wantedCol = wantedCol;
    }
  
    public Student(double grade, int year, String name, double height, String id, boolean medicalFrontPreference, boolean medicalBackPreference) {
@@ -26,6 +43,9 @@ public class Student {
      this.ID = id;
      this.medicalFrontPreference = medicalFrontPreference;
      this.medicalBackPreference = medicalBackPreference;
+     this.friendID = friendID;
+     this.wantedRow = wantedRow;
+     this.wantedCol = wantedCol;
    }
  
    public boolean getMedicalFrontPreference(){

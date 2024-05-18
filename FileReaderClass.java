@@ -24,8 +24,7 @@ public class FileReaderClass {
 			// writer.close(); //You MUST close a file and cannot leave it open
 			
 			FileReader fileReader = new FileReader(teacherFile);
-			BufferedReader reader = new BufferedReader(fileReader);
-			
+			BufferedReader reader = new BufferedReader(fileReader);			
 			String roomNumber = reader.readLine();
 			String temp = reader.readLine();
 			if (temp.indexOf(" ")!=-1){
