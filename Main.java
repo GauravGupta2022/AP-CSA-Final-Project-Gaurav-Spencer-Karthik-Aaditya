@@ -1,11 +1,5 @@
+import java.awt.Panel;
 import java.util.Scanner;
-import java.lang.Math;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 
 public class Main {
   public static void main(String[] args) {
@@ -33,6 +27,8 @@ public class Main {
       //code
     }
     System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
-  }
+  
 
+  panel.initialize(classroom.getNumRows(), classroom.getNumCols(), classroom.getID(), classroom.getName());
+  }
 }
