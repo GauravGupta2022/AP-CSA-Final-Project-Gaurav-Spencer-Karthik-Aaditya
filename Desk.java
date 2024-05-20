@@ -18,4 +18,10 @@ public class Desk {
    public Student getStudent(){
     return student;
    }
- }
+   public Student unseat(){
+      Student result = student;
+      this.student = null;
+      this.occupied = false;
+      return result;
+   }
+    }

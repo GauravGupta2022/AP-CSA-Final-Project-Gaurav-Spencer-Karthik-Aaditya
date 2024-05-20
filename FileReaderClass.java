@@ -24,14 +24,18 @@ public class FileReaderClass {
 			// writer.close(); //You MUST close a file and cannot leave it open
 			
 			FileReader fileReader = new FileReader(teacherFile);
-			BufferedReader reader = new BufferedReader(fileReader);
+			BufferedReader reader = new BufferedReader(fileReader);			
 			String roomNumber = reader.readLine();
-			int numRows = Integer.parseInt(reader.readLine());
+			String temp = reader.readLine();
+			if (temp.indexOf(" ")!=-1){
+				int numRows = Integer.parseInt(temp.substring(0, temp.indexOf(" ")));
+			}
 			int numCols = Integer.parseInt(reader.readLine());
+			int totalDesks = Integer.parseInt(reader.readLine());
 
 			//Prining
 			System.out.println(roomNumber);
-			System.out.println(numRows);
+			//System.out.println(numRows);
 			System.out.println(numCols);
 
 			

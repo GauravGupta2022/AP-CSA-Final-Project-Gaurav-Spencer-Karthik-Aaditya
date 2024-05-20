@@ -1,17 +1,73 @@
 
 import java.util.ArrayList;
 import java.lang.Math;
+
 public class Classroom{
+  
     private int deskCount;
     private int studentCount;
-    private Desk[][] desks = new Desk[20][20];
+    private Desk[][] desks;
+    private int numRows;
+    private int numCols;
     private int classNumber;
     private int periodNumber;
     private ArrayList<Student> studentList = new ArrayList<Student>();
+
+    public void setDeskCount(int deskCount) {
+      this.deskCount = deskCount;
+    }
+    public void setStudentCount(int studentCount) {
+      this.studentCount = studentCount;
+    }
+    public void setDesks(Desk[][] desks) {
+      this.desks = desks;
+    }
+    public void setNumRows(int numRows) {
+      this.numRows = numRows;
+    }
+    public void setNumCols(int numCols) {
+      this.numCols = numCols;
+    }
+    public void setClassNumber(int classNumber) {
+      this.classNumber = classNumber;
+    }
+    public void setPeriodNumber(int periodNumber) {
+      this.periodNumber = periodNumber;
+    }
+    public void setStudentList(ArrayList<Student> studentList) {
+      this.studentList = studentList;
+    }
+    public int getDeskCount() {
+      return deskCount;
+    }
+    public int getStudentCount() {
+      return studentCount;
+    }
+    public Desk[][] getDesks() {
+      return desks;
+    }
+    public int getNumRows() {
+      return numRows;
+    }
+    public int getNumCols() {
+      return numCols;
+    }
+    public int getClassNumber() {
+      return classNumber;
+    }
+    public int getPeriodNumber() {
+      return periodNumber;
+    }
+    public ArrayList<Student> getStudentList() {
+      return studentList;
+    }
+
     public Classroom (int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students){
       this.deskCount = deskCount;
       this.studentCount = studentCount;
       this.desks = desks;
+      numRows = desks.length;
+      numCols = desks[0].length;
       this.classNumber = classNumber;
       this.periodNumber = periodNumber;
       this.studentList = students;
@@ -26,6 +82,16 @@ public class Classroom{
     }
     public void setDesks(){
       int x = 0;
+    }
+    public void reset(){
+      for(int r = 0; r < desks.length; r++){
+        for(int c = 0; c < desks[0].length; c++){
+          if(desks[r][c] != null){
+            studentList.add(desks[r][c].unseat());
+
+          }
+        }
+      }
     }
     public void fullRandom(){//Creates a fully randomized seating chart
       int rand = 0;
@@ -171,27 +237,46 @@ public class Classroom{
         }
         return null;
       }
-      /*public static String isNearbyDeskEmpty(int r, int c){
+      public String isNearbyDeskEmpty(int r, int c){
         String result = "";
         if(desks[r][c] != null){
           if(r > 1 && r != desks.length-2 && c > 1 && c != desks[0].length -2){
             if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null) || (desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
-              result = "right";
+              result = "Right";
 
             }
             else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null) || (desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
-              result = "left";
+              result = "Left";
             }
             else if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null) || (desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
-              result = "behind";
+              result = "Up";
             }
             else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null) || (desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
-              result = "front";
+              result = "Down";
             }
           }
-          else if()
+          else if((r == 0 || r == 1) || (r== desks.length - 1 || r == desks.length - 2)){
+            if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null) || (desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
+              result = "Right";
+
+            }
+            else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null) || (desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
+              result = "Left";
+            }
+
+          }
+          else if((c == 0 || c ==1) || (c == desks[0].length - 1 || c == desks.length -2)){
+             if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null) || (desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
+              result = "Up";
+            }
+            else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null) || (desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
+              result = "Down";
+            }
         }
+        
+       
       }
-    
-   */ 
-}  
+          return result;
+} 
+
+}
