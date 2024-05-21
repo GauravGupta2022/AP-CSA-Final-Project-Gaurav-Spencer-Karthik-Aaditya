@@ -1,9 +1,9 @@
 public class Student {
-   private final double grade; // grade in the class
-   private final int YEAR; // gradelevel
-   private final String NAME;
-   private final double HEIGHT;
-   private final String ID;
+   private double grade; // grade in the class
+   private int year; // gradelevel
+   private String name;
+   private double height;
+   private String id;
    private boolean medicalFrontPreference;
    private boolean medicalBackPreference;
    private String friendID;
@@ -12,10 +12,10 @@ public class Student {
  
    public Student() {
      grade = 0.0;
-     YEAR = 9;
-     NAME = "X";
-     HEIGHT = 0.0;
-     ID = "000000";
+     year = 9;
+     name = "X";
+     height = 0.0;
+     id = "000000";
      medicalFrontPreference = false;
      medicalBackPreference = false;
      friendID = "000000";
@@ -37,15 +37,28 @@ public class Student {
  
    public Student(double grade, int year, String name, double height, String id, boolean medicalFrontPreference, boolean medicalBackPreference) {
      this.grade = grade;
-     this.YEAR = year;
-     this.NAME = name;
-     this.HEIGHT = height;
-     this.ID = id;
+     this.year = year;
+     this.name = name;
+     this.height = height;
+     this.id = id;
      this.medicalFrontPreference = medicalFrontPreference;
      this.medicalBackPreference = medicalBackPreference;
      this.friendID = friendID;
      this.wantedRow = wantedRow;
      this.wantedCol = wantedCol;
+   }
+
+   public Student(String name){
+      this.name = name;
+      grade = 0.0;
+      year = 0;
+      height = 0.0;
+      id = "000000";
+      medicalFrontPreference = false;
+      medicalBackPreference = false;
+      friendID = "000000";
+      wantedRow = -1;
+      wantedCol = -1;
    }
  
    public boolean getMedicalFrontPreference(){
@@ -61,16 +74,16 @@ public class Student {
    }
  
    public int getYear() {
-     return YEAR;
+     return year;
    }
    public String getName(){
-     return NAME;
+     return name;
    }
    public double getHeight(){
-     return HEIGHT;
+     return height;
    }
    public String getID(){
-     return ID;
+     return id;
    }
    public String getFriendID(){
     return friendID;
@@ -78,13 +91,38 @@ public class Student {
    public String toString(){
     String toReturn = "";
     toReturn = toReturn.concat("Grade: "+this.grade+" - ");
-    toReturn = toReturn.concat("YEAR: "+this.YEAR+" - ");
-    toReturn = toReturn.concat("NAME: "+this.NAME+" - ");
-    toReturn = toReturn.concat("HEIGHT: "+this.HEIGHT+" - ");
-    toReturn = toReturn.concat("ID: "+this.ID+" - ");
+    toReturn = toReturn.concat("YEAR: "+this.year+" - ");
+    toReturn = toReturn.concat("NAME: "+this.name+" - ");
+    toReturn = toReturn.concat("HEIGHT: "+this.height+" - ");
+    toReturn = toReturn.concat("ID: "+this.id+" - ");
     toReturn = toReturn.concat("medicalFrontPreference: "+this.medicalFrontPreference+" - ");
     toReturn = toReturn.concat("medicalBackPreference: "+this.medicalBackPreference+" - ");
     toReturn = toReturn.concat("friendID: "+this.friendID);
     return toReturn;
    }
+  public void setGrade(double grade) {
+    this.grade = grade;
+  }
+  public void setYear(int year) {
+    this.year = year;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+  public void setHeight(double height) {
+    this.height = height;
+  }
+  public void setId(String id) {
+    this.id = id;
+  }
+  public void setMedicalFrontPreference(boolean medicalFrontPreference) {
+    this.medicalFrontPreference = medicalFrontPreference;
+  }
+  public void setMedicalBackPreference(boolean medicalBackPreference) {
+    this.medicalBackPreference = medicalBackPreference;
+  }
+  public void setFriendID(String friendID) {
+    this.friendID = friendID;
+  }
+   
  }

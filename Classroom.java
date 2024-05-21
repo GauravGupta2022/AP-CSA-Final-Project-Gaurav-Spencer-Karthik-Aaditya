@@ -9,7 +9,7 @@ public class Classroom{
     private Desk[][] desks;
     private int numRows;
     private int numCols;
-    private int classNumber;
+    private String roomNumber;
     private int periodNumber;
     private ArrayList<Student> studentList = new ArrayList<Student>();
 
@@ -28,8 +28,8 @@ public class Classroom{
     public void setNumCols(int numCols) {
       this.numCols = numCols;
     }
-    public void setClassNumber(int classNumber) {
-      this.classNumber = classNumber;
+    public void setRoomNumber(String roomNumber) {
+      this.roomNumber = roomNumber;
     }
     public void setPeriodNumber(int periodNumber) {
       this.periodNumber = periodNumber;
@@ -52,8 +52,8 @@ public class Classroom{
     public int getNumCols() {
       return numCols;
     }
-    public int getClassNumber() {
-      return classNumber;
+    public String getRoomNumber() {
+      return roomNumber;
     }
     public int getPeriodNumber() {
       return periodNumber;
@@ -62,13 +62,13 @@ public class Classroom{
       return studentList;
     }
 
-    public Classroom (int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students){
+    public Classroom (int deskCount, int studentCount, Desk[][] desks, String roomNumber, int periodNumber, ArrayList<Student> students){
       this.deskCount = deskCount;
       this.studentCount = studentCount;
       this.desks = desks;
       numRows = desks.length;
       numCols = desks[0].length;
-      this.classNumber = classNumber;
+      this.roomNumber = roomNumber;
       this.periodNumber = periodNumber;
       this.studentList = students;
     }
@@ -76,7 +76,7 @@ public class Classroom{
       this.deskCount = 0;
       this.studentCount = 0;
       this.desks = new Desk[0][0];
-      this.classNumber = 0;
+      this.roomNumber = "";
       this.periodNumber = 1;
       this.studentList = new ArrayList<Student>();
     }
