@@ -1,4 +1,4 @@
-
+S
 import java.util.ArrayList;
 import java.lang.Math;
 
@@ -113,6 +113,58 @@ public class Classroom{
       }
 
     }
+    public void eliteSeating(double min){
+      medicalBackPreference();
+      medicalFrontPreference();
+      ArrayList<Student> newList = new ArrayList<Student>();
+      for (int i=0;i<studentList.size();i++){
+        if (studentList.get(i).getGrade()>=min){
+          newList.add(studentList.get(i));
+        }
+      }
+
+      //more code
+
+      int count = 0;
+      while (count<newList.size()){
+        int row = newList.get(count).getWantedRow();
+        int col = newList.get(count).getWantedCol();
+        if(desks[row][col]!=null && desks[row][col].getOccupied() == false && !isNearbyDeskEmpty(row,col).equals("")){
+          String dir = isNearbyDeskEmpty(row, col);
+          if(dir.equals("Right")){
+            desks[row][col+1].seat(findStudent(newList.get(count).getFriendID()));
+          }
+          else if(dir.equals("Left")){
+            desks[row][col-1].seat(findStudent(newList.get(count).getFriendID()));
+          }
+          else if(dir.equals("Up")){
+            desks[row-1][col].seat(findStudent(newList.get(count).getFriendID()));
+;
+          }
+          else if (dir.equals("Down")){
+            desks[row+11][col].seat(findStudent(newList.get(count).getFriendID()));
+          }
+          }
+          else{
+            boolean flag = true;
+            while(flag)
+              row = (int)(Math.random()*desks.length-1)+1;
+              col = (int)(Math.random()*desks[0].length-1)+1;
+              if(desks[row][col]!=null && desks[row][col].getOccupied() == false && !isNearbyDeskEmpty(row,col).equals("")){
+                flag = false;
+              }
+              //more code
+          }
+        }
+        
+        count++;
+      
+      
+      
+      
+      
+      
+      }
     public void medicalFrontPreference(){//Seats kids (with medical needs for it) at the front of the classroom
       ArrayList<Student> newList = new ArrayList<Student>();
       for (int i=0; i<studentList.size();i++){
