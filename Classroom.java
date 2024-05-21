@@ -9,7 +9,7 @@ public class Classroom{
     private Desk[][] desks;
     private int numRows;
     private int numCols;
-    private int classNumber;
+    private String roomNumber;
     private int periodNumber;
     private boolean isGroup = false;
     private ArrayList<Student> studentList = new ArrayList<Student>();
@@ -32,8 +32,8 @@ public class Classroom{
     public void setNumCols(int numCols) {
       this.numCols = numCols;
     }
-    public void setClassNumber(int classNumber) {
-      this.classNumber = classNumber;
+    public void setRoomNumber(String roomNumber) {
+      this.roomNumber = roomNumber;
     }
     public void setPeriodNumber(int periodNumber) {
       this.periodNumber = periodNumber;
@@ -56,8 +56,8 @@ public class Classroom{
     public int getNumCols() {
       return numCols;
     }
-    public int getClassNumber() {
-      return classNumber;
+    public String getRoomNumber() {
+      return roomNumber;
     }
     public int getPeriodNumber() {
       return periodNumber;
@@ -66,13 +66,13 @@ public class Classroom{
       return studentList;
     }
 
-    public Classroom (int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students){
+    public Classroom (int deskCount, int studentCount, Desk[][] desks, String roomNumber, int periodNumber, ArrayList<Student> students){
       this.deskCount = deskCount;
       this.studentCount = studentCount;
       this.desks = desks;
       numRows = desks.length;
       numCols = desks[0].length;
-      this.classNumber = classNumber;
+      this.roomNumber = roomNumber;
       this.periodNumber = periodNumber;
       this.studentList = students;
     }
@@ -80,7 +80,7 @@ public class Classroom{
       this.deskCount = 0;
       this.studentCount = 0;
       this.desks = new Desk[0][0];
-      this.classNumber = 0;
+      this.roomNumber = "";
       this.periodNumber = 1;
       this.studentList = new ArrayList<Student>();
     }
@@ -113,6 +113,58 @@ public class Classroom{
       }
 
     }
+    public void eliteSeating(double min){
+      medicalBackPreference();
+      medicalFrontPreference();
+      ArrayList<Student> newList = new ArrayList<Student>();
+      for (int i=0;i<studentList.size();i++){
+        if (studentList.get(i).getGrade()>=min){
+          newList.add(studentList.get(i));
+        }
+      }
+
+      //more code
+
+      int count = 0;
+      while (count<newList.size()){
+        int row = newList.get(count).getWantedRow();
+        int col = newList.get(count).getWantedCol();
+        if(desks[row][col]!=null && desks[row][col].getOccupied() == false && !isNearbyDeskEmpty(row,col).equals("")){
+          String dir = isNearbyDeskEmpty(row, col);
+          if(dir.equals("Right")){
+            desks[row][col+1].seat(findStudent(newList.get(count).getFriendID()));
+          }
+          else if(dir.equals("Left")){
+            desks[row][col-1].seat(findStudent(newList.get(count).getFriendID()));
+          }
+          else if(dir.equals("Up")){
+            desks[row-1][col].seat(findStudent(newList.get(count).getFriendID()));
+;
+          }
+          else if (dir.equals("Down")){
+            desks[row+11][col].seat(findStudent(newList.get(count).getFriendID()));
+          }
+          }
+          else{
+            boolean flag = true;
+            while(flag)
+              row = (int)(Math.random()*desks.length-1)+1;
+              col = (int)(Math.random()*desks[0].length-1)+1;
+              if(desks[row][col]!=null && desks[row][col].getOccupied() == false && !isNearbyDeskEmpty(row,col).equals("")){
+                flag = false;
+              }
+              //more code
+          }
+        }
+        
+        count++;
+      
+      
+      
+      
+      
+      
+      }
     public void medicalFrontPreference(){//Seats kids (with medical needs for it) at the front of the classroom
       ArrayList<Student> newList = new ArrayList<Student>();
       for (int i=0; i<studentList.size();i++){

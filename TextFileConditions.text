@@ -3,3 +3,7 @@ numRow = Number rows of desks (int)
 numCol = Number columns of desks (int)
 Total number of desks (int)
 Positioning of which desks are available where Xs are not available and Os are available (next numRow lines)
+numStudents = Number of students (int)
+Next numStudents lines contain students' names
+... contain student's years
+
