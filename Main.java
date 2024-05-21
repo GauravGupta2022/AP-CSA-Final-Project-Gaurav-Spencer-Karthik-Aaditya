@@ -97,7 +97,6 @@ public class Main {
     //panel.initialize(classroom.getNumRows(), classroom.getNumCols(), classroom.getID(), classroom.getName());
   }
 
-  
   private static void setStudentAttributes(BufferedReader reader, ArrayList<Student> students, int studentCount) throws Exception {
     try {
       for (int i=0; i<studentCount; i++){

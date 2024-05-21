@@ -11,8 +11,12 @@ public class Classroom{
     private int numCols;
     private String roomNumber;
     private int periodNumber;
+    private boolean isGroup = false;
     private ArrayList<Student> studentList = new ArrayList<Student>();
 
+    public void setIsGroup(boolean b){
+      isGroup = b;
+    }
     public void setDeskCount(int deskCount) {
       this.deskCount = deskCount;
     }
@@ -98,7 +102,7 @@ public class Classroom{
       for(int r = 0; r < desks.length; r++){
         for(int c = 0; c < desks[0].length; c++){
           //code to install student
-          if(desks[r][c]!= null){
+          if(desks[r][c]!= null && desks[r][c].getOccupied() == false){
             if(studentList.size()>0){
             rand = (int)Math.random()*studentList.size();
             desks[r][c].seat(studentList.get(rand));
@@ -159,7 +163,27 @@ public class Classroom{
             break;
         }
       }
-      public Student findStudentWithGrade(double num){ //Finds a student in the grade of the num parameter
+
+      public void medicalWithRandom(){
+        medicalBackPreference();
+        medicalFrontPreference();
+        fullRandom();
+      }
+      
+
+      public void 
+
+
+
+
+
+
+
+
+
+
+        
+        public Student findStudentWithGrade(double num){ //Finds a student in the grade of the num parameter
         for (int i=0;i<studentList.size();i++){
           if (studentList.get(i).getGrade()==num){
             return studentList.get(i);
@@ -173,6 +197,7 @@ public class Classroom{
           for (int col=0;col<desks[0].length;col++){
             if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currGrade = desks[row][col].getStudent().getGrade();
+              if(isGroup == true){
               if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
                 desks[row][col+1].seat(findStudentWithGrade(currGrade));
                 studentList.remove(findStudentWithGrade(currGrade));
@@ -193,10 +218,34 @@ public class Classroom{
                 studentList.remove(findStudentWithGrade(currGrade));
                 break;
               }
+              }
+              else{
+                if (isNearbyDeskEmpty(row, col).equals("Right") && (col+2)<desks[0].length){
+                desks[row][col+2].seat(findStudentWithGrade(currGrade));
+                studentList.remove(findStudentWithGrade(currGrade));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row, col).equals("Left") && (col-2)>-2){
+                desks[row][col-2].seat(findStudentWithGrade(currGrade));
+                studentList.remove(findStudentWithGrade(currGrade));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row, col).equals("Down") && (row+2)<desks.length){
+                desks[row+2][col].seat(findStudentWithGrade(currGrade));
+                studentList.remove(findStudentWithGrade(currGrade));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row,col).equals("Up") && (row-2)>-1){
+                desks[row-2][col].seat(findStudentWithGrade(currGrade));
+                studentList.remove(findStudentWithGrade(currGrade));
+                break;
+              }
+                
             }
           }
           break;
         }
+      }
       }
       public void personalPreference(){ //Seats one student (who was  selected by the original student) next to one another
         String currFriendID = "";
@@ -204,7 +253,30 @@ public class Classroom{
           for (int col=0;col<desks[0].length;col++){
             if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currFriendID = desks[row][col].getStudent().getFriendID();
-              if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
+            if(isGroup == false){
+              if (isNearbyDeskEmpty(row, col).equals("Right") && (col+2)<desks[0].length){
+                desks[row][col+2].seat(findStudent(currFriendID));
+                studentList.remove(findStudent(currFriendID));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row, col).equals("Left") && (col-2)>-1){
+                desks[row][col-2].seat(findStudent(currFriendID));
+                studentList.remove(findStudent(currFriendID));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row, col).equals("Down") && (row+2)<desks.length){
+                desks[row+2][col].seat(findStudent(currFriendID));
+                studentList.remove(findStudent(currFriendID));
+                break;
+              }
+              else if (isNearbyDeskEmpty(row,col).equals("Up") && (row-2)>-1){
+                desks[row-2][col].seat(findStudent(currFriendID));
+                studentList.remove(findStudent(currFriendID));
+                break;
+              }
+            }
+              else{
+                if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
                 desks[row][col+1].seat(findStudent(currFriendID));
                 studentList.remove(findStudent(currFriendID));
                 break;
@@ -224,11 +296,16 @@ public class Classroom{
                 studentList.remove(findStudent(currFriendID));
                 break;
               }
-            }
+
+
+                
+              } 
+          }
           }
           break;
         }
       }
+
       public Student findStudent(String givenID){ //Finds a student with a given ID number
         for (int i=0;i<studentList.size();i++){
           if (studentList.get(i).getID().equals(givenID)){

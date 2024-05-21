@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Student {
    private double grade; // grade in the class
    private int year; // gradelevel
@@ -9,7 +10,7 @@ public class Student {
    private String friendID;
    private int wantedRow;
    private int wantedCol;
- 
+   private ArrayList<String> groupMembers = new ArrayList<String>();
    public Student() {
      grade = 0.0;
      year = 9;
@@ -60,7 +61,6 @@ public class Student {
       wantedRow = -1;
       wantedCol = -1;
    }
- 
    public boolean getMedicalFrontPreference(){
     return medicalFrontPreference;
    }
