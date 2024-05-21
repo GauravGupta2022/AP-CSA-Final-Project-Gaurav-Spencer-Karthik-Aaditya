@@ -1,17 +1,11 @@
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class ClassroomGUI {
     private int totalDesks;
+    private boolean isStudentView = false;
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ClassroomGUI gui = new ClassroomGUI();
-            gui.createAndShowGUI();
-        });
-    }
-
-    private void createAndShowGUI() {
+    public ClassroomGUI() {
         JFrame frame = new JFrame("Classroom Layout");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -20,6 +14,7 @@ public class ClassroomGUI {
         JLabel deskLabel = new JLabel("Total Desks:");
         JTextField deskField = new JTextField(5);
         JButton updateButton = new JButton("Update");
+        JButton toggleViewButton = new JButton("Switch to Student View");
 
         updateButton.addActionListener(e -> {
             try {
@@ -30,9 +25,16 @@ public class ClassroomGUI {
             }
         });
 
+        toggleViewButton.addActionListener(e -> {
+            isStudentView = !isStudentView;
+            toggleViewButton.setText(isStudentView ? "Switch to Teacher View" : "Switch to Student View");
+            frame.repaint();
+        });
+
         controlPanel.add(deskLabel);
         controlPanel.add(deskField);
         controlPanel.add(updateButton);
+        controlPanel.add(toggleViewButton);
 
         frame.add(controlPanel, BorderLayout.NORTH);
         frame.add(new ClassroomPanel(), BorderLayout.CENTER);
@@ -44,17 +46,11 @@ public class ClassroomGUI {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            // Draw the front of the classroom
-            g.setColor(Color.BLUE);
-            g.fillRect(50, 10, 700, 30);
-            g.setColor(Color.WHITE);
-            g.drawString("Front of the Classroom", 350, 30);
-
-            // Draw the back of the classroom
-            g.setColor(Color.BLUE);
-            g.fillRect(50, 520, 700, 30);
-            g.setColor(Color.WHITE);
-            g.drawString("Back of the Classroom", 350, 540);
+            if (isStudentView) {
+                drawStudentView(g);
+            } else {
+                drawTeacherView(g);
+            }
 
             // Draw tables with panels showing desks
             g.setColor(Color.GRAY);
@@ -107,6 +103,34 @@ public class ClassroomGUI {
             g.fillRect(700, 230, 30, 60);
             g.setColor(Color.WHITE);
             g.drawString("Door", 705, 260);
+        }
+
+        private void drawTeacherView(Graphics g) {
+            // Draw the front of the classroom
+            g.setColor(Color.BLUE);
+            g.fillRect(50, 10, 700, 30);
+            g.setColor(Color.WHITE);
+            g.drawString("Front of the Classroom", 350, 30);
+
+            // Draw the back of the classroom
+            g.setColor(Color.BLUE);
+            g.fillRect(50, 520, 700, 30);
+            g.setColor(Color.WHITE);
+            g.drawString("Back of the Classroom", 350, 540);
+        }
+
+        private void drawStudentView(Graphics g) {
+            // Draw the front of the classroom at the bottom
+            g.setColor(Color.BLUE);
+            g.fillRect(50, 520, 700, 30);
+            g.setColor(Color.WHITE);
+            g.drawString("Front of the Classroom", 350, 540);
+
+            // Draw the back of the classroom at the top
+            g.setColor(Color.BLUE);
+            g.fillRect(50, 10, 700, 30);
+            g.setColor(Color.WHITE);
+            g.drawString("Back of the Classroom", 350, 30);
         }
     }
 }
