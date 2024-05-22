@@ -74,7 +74,18 @@ public class Main {
 
     ///START OF PROGRAM
     Classroom classroom = new Classroom(deskCount, studentCount, desks, roomNumber, periodNumber, students);
-    //CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
+    
+    System.out.println("Room number: " + classroom.getRoomNumber());
+		System.out.println("Number of rows: "+ classroom.getNumRows());
+		System.out.println("Number of colums: " +classroom.getNumCols());
+    System.out.println("Total desks: " +classroom.getDeskCount());
+    System.out.println("Total students: "+classroom.getStudentCount());
+    for (Student s : classroom.getStudentList()){
+        System.out.println(s);
+    }
+
+    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
+
     System.out.println("Welcome to Seating Plus!");
     Scanner input = new Scanner(System.in);
     Student myStudent = new Student();
@@ -108,18 +119,33 @@ public class Main {
       for (int i=0; i<studentCount; i++){
         students.get(i).setYear(getDigitsFromString(reader.readLine())); //years
       }
-      //heights
-      //medicalFrontPreference
-      //medicalbackPreference
-      //grade in class
-      //friendid
-      //wantedRow
-      //wantedCol
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setHeight(getDigitsFromString(reader.readLine())); //height
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setMedicalFrontPreference(getBooleanFromString(reader.readLine())); //medicalFrontPreference
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setMedicalBackPreference(getBooleanFromString(reader.readLine())); //medicalBackPreference
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setGrade(getDigitsFromString(reader.readLine())); //grade
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setFriendID(reader.readLine()); //friendID
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setWantedRow(getDigitsFromString(reader.readLine())); //wantedRow
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setWantedCol(getDigitsFromString(reader.readLine())); //wantedCol
+      }
     } catch (Exception e) {
       throw e;
     }
   }
 
+  //does not account for decimal points
   private static int getDigitsFromString(String s){
     String temp = "";
     for (int i=0; i<s.length(); i++){
@@ -132,6 +158,16 @@ public class Main {
       }
     }
     return Integer.parseInt(temp);
+  }
+
+  private static boolean getBooleanFromString(String s) throws Exception {
+    if (s.length()==4 && s.substring(0, 4).equals("true")){
+      return true;
+    }
+    else if (s.length()==5 && s.substring(0, 5).equals("false")) {
+      return false;
+    }
+    throw new Exception();
   }
 
   private static Desk[][] getValidDesks(int numRows, int numCols, BufferedReader reader) throws Exception {
@@ -150,7 +186,7 @@ public class Main {
             desks[r][c] = null;
           }
         }
-    }
+      }
     } catch (Exception e) {
       throw e;
     }
