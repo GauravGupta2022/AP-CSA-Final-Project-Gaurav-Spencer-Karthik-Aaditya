@@ -94,10 +94,10 @@ public class Student {
    public String toString(){
     String toReturn = "";
     toReturn = toReturn.concat("Grade: "+this.grade+" - ");
-    toReturn = toReturn.concat("YEAR: "+this.year+" - ");
-    toReturn = toReturn.concat("NAME: "+this.name+" - ");
-    toReturn = toReturn.concat("HEIGHT: "+this.height+" - ");
-    toReturn = toReturn.concat("ID: "+this.id+" - ");
+    toReturn = toReturn.concat("Year: "+this.year+" - ");
+    toReturn = toReturn.concat("Name: "+this.name+" - ");
+    toReturn = toReturn.concat("Height: "+this.height+" - ");
+    toReturn = toReturn.concat("id: "+this.id+" - ");
     toReturn = toReturn.concat("medicalFrontPreference: "+this.medicalFrontPreference+" - ");
     toReturn = toReturn.concat("medicalBackPreference: "+this.medicalBackPreference+" - ");
     toReturn = toReturn.concat("friendID: "+this.friendID);

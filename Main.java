@@ -1,11 +1,20 @@
+import java.awt.Panel;
+import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import java.lang.Math;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Main {
-  public static void main(String[] args) {
+ public class Main {
+ public static void main(String[] args) {
+
+   SwingUtilities.invokeLater(ClassroomGUI::new);
+   JFrame frame = new JFrame("Classroom Layout");
+   //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
+    System.out.println("Start of program");
     String roomNumber = null;
     int periodNumber =-1;
     int numRows = -1;
@@ -31,20 +40,16 @@ public class Main {
 			numCols = getDigitsFromString(reader.readLine());
       desks = new Desk[numRows][numCols];
 			deskCount = getDigitsFromString(reader.readLine());
-
       Desk[][] tempDesk = getValidDesks(numRows, numCols, reader);
       for (int r=0; r<numRows; r++){
         for (int c=0; c<numCols; c++){
           desks[r][c] = tempDesk[r][c];
         }
       }
-      
-
       studentCount = getDigitsFromString(reader.readLine());
       setStudentAttributes(reader, students, studentCount);
 
       
-
 			reader.close(); //END OF TEXT FILE READING
 			
 			
@@ -65,33 +70,38 @@ public class Main {
       System.out.println("Total desks: " +deskCount);
       System.out.println("Total students: "+studentCount);
     }
-
     
-
-    //bob.initialize(classroom.getNumRows(), classroom.getNumCols(), )
-
-    
-
     ///START OF PROGRAM
     Classroom classroom = new Classroom(deskCount, studentCount, desks, roomNumber, periodNumber, students);
-    //CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
+
+    System.out.println("Room number: " + classroom.getRoomNumber());
+		System.out.println("Number of rows: "+ classroom.getNumRows());
+		System.out.println("Number of colums: " +classroom.getNumCols());
+    System.out.println("Total desks: " +classroom.getDeskCount());
+    System.out.println("Total students: "+classroom.getStudentCount());
+    for (Student s : classroom.getStudentList()){
+        System.out.println(s);
+    }
+
+    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
+
     System.out.println("Welcome to Seating Plus!");
     Scanner input = new Scanner(System.in);
     Student myStudent = new Student();
     System.out.println(myStudent);
-    
     System.out.println("Hello, would you like to get a completely randomized desk setup [1], to let your students choose their own desks [2], or to choose the desk arrangement yourself [3]");
-    String response = input.next();
-    //NOTE: Must prompt teacher for int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students in order to fill the Classroom constructor...
+     String response = input.next();
+     //NOTE: Must prompt teacher for int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students in order to fill the Classroom constructor...
     if (response.contains("1")){//completely randomized
       classroom.fullRandom();
     }
-    else if (response.contains("2")){//students choose own desks
-      //code
-    }
+   else if (response.contains("2")){//students choose own desks
+     //code
+     }
     else{//teacher chooses desk arrangement
-      //code
+       //code
     }
+    
     System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
 
     //panel.initialize(classroom.getNumRows(), classroom.getNumCols(), classroom.getID(), classroom.getName());
@@ -108,18 +118,33 @@ public class Main {
       for (int i=0; i<studentCount; i++){
         students.get(i).setYear(getDigitsFromString(reader.readLine())); //years
       }
-      //heights
-      //medicalFrontPreference
-      //medicalbackPreference
-      //grade in class
-      //friendid
-      //wantedRow
-      //wantedCol
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setHeight(getDigitsFromString(reader.readLine())); //height
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setMedicalFrontPreference(getBooleanFromString(reader.readLine())); //medicalFrontPreference
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setMedicalBackPreference(getBooleanFromString(reader.readLine())); //medicalBackPreference
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setGrade(getDigitsFromString(reader.readLine())); //grade
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setFriendID(reader.readLine()); //friendID
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setWantedRow(getDigitsFromString(reader.readLine())); //wantedRow
+      }
+      for (int i=0; i<studentCount; i++){
+        students.get(i).setWantedCol(getDigitsFromString(reader.readLine())); //wantedCol
+      }
     } catch (Exception e) {
       throw e;
     }
   }
 
+  //does not account for decimal points
   private static int getDigitsFromString(String s){
     String temp = "";
     for (int i=0; i<s.length(); i++){
@@ -132,6 +157,16 @@ public class Main {
       }
     }
     return Integer.parseInt(temp);
+  }
+
+  private static boolean getBooleanFromString(String s) throws Exception {
+    if (s.length()==4 && s.substring(0, 4).equals("true")){
+      return true;
+    }
+    else if (s.length()==5 && s.substring(0, 5).equals("false")) {
+      return false;
+    }
+    throw new Exception();
   }
 
   private static Desk[][] getValidDesks(int numRows, int numCols, BufferedReader reader) throws Exception {
@@ -150,7 +185,7 @@ public class Main {
             desks[r][c] = null;
           }
         }
-    }
+      }
     } catch (Exception e) {
       throw e;
     }

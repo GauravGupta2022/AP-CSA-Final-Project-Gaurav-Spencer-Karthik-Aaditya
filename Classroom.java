@@ -235,6 +235,7 @@ public class Classroom{
       }
       
 
+
       public void groupChoosing(){
         medicalBackPreference();
         medicalFrontPreference();
@@ -307,6 +308,8 @@ public class Classroom{
         //code to randomize remaining seats
         fullRandom();
       }
+
+
 
 
 
