@@ -4,6 +4,15 @@ numCol = Number columns of desks (int)
 Total number of desks (int)
 Positioning of which desks are available where Xs are not available and Os are available (next numRow lines)
 numStudents = Number of students (int)
-Next numStudents lines contain students' names
-... contain student's years
+Next numStudents lines contain students' ...
+... name (String)
+... year (int)
+... height (int)
+... medical front preference (boolean)
+... medical back preference (boolean)
+... grade (double)
+... friend's ID (String)
+... most desired row for student (int)
+... most desired column for student (int) 
+
 

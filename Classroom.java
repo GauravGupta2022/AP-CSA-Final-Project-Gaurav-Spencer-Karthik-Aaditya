@@ -13,6 +13,7 @@ public class Classroom{
     private int periodNumber;
     private boolean isGroup = false;
     private ArrayList<Student> studentList = new ArrayList<Student>();
+    private int numInGroup = 0;
 
     public void setIsGroup(boolean b){
       isGroup = b;
@@ -75,6 +76,17 @@ public class Classroom{
       this.roomNumber = roomNumber;
       this.periodNumber = periodNumber;
       this.studentList = students;
+    }
+    public Classroom (int deskCount, int studentCount, Desk[][] desks, String roomNumber, int periodNumber, ArrayList<Student> students, int num){
+      this.deskCount = deskCount;
+      this.studentCount = studentCount;
+      this.desks = desks;
+      numRows = desks.length;
+      numCols = desks[0].length;
+      this.roomNumber = roomNumber;
+      this.periodNumber = periodNumber;
+      this.studentList = students;
+      this.numInGroup = num;
     }
     public Classroom(){
       this.deskCount = 0;
@@ -223,7 +235,81 @@ public class Classroom{
       }
       
 
-      public void 
+
+      public void groupChoosing(){
+        medicalBackPreference();
+        medicalFrontPreference();
+        //takes first person in student list, places him in group, takes his friends (if they exist) and places them in group
+        //if no friends, then skip the group until the others are filled and then randomize it
+        int count = 0;
+        for(int r = 0; r < desks.length; r++){
+          for(int c = 0; c < desks[0].length; c++){
+            if(desks[r][c] != null && desks[r][c].getOccupied() == false && desks[r][c].getChecked() == false){
+              if(studentList.size() > 0){
+                Student s = studentList.remove(count);
+                desks[r][c].seat(s);
+                
+                count++;
+       
+                int count3 = 0;
+                int x = r;
+                int y = c;
+                boolean flag = true;
+              
+                  while(true){
+                    if (x < 0 || x >= desks.length || y < 0 || y >= desks[0].length) {
+                      break;
+                  }
+                    if(desks[x][y] != null && s.getGroupMembers().size() > 0 && desks[x][y].getOccupied() == false ){
+                      desks[x][y].seat(findStudent(s.getGroupMembers().remove(0)));
+        
+                      if(flag == true){
+                        y++;
+                        
+                      }
+                      else{
+                        count3++;
+                        y--;
+                      }
+                      
+                    }
+                    else if(desks[x][y] == null && flag == false){
+                      if(count3 == 0){
+                        break;
+                      }
+                      x++;
+                      y--;
+                      count3 = 0;
+                      flag = !flag;
+
+                    
+
+                    }
+                    else if(desks[x][y] == null && flag == true){
+                      if(count3 == 0){
+                        break;
+                      }
+                      x++;
+                      y++;
+                      count3 = 0;
+                      flag = !flag;
+
+                    }
+                    
+                  }
+                
+
+
+              }
+            }
+            
+          }
+        }
+        //code to randomize remaining seats
+        fullRandom();
+      }
+
+
 
 
 

@@ -1,10 +1,21 @@
+<<<<<<< HEAD
+=======
+import java.awt.Panel;
+import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import java.lang.Math;
+>>>>>>> ec788062c9569434337ddf03f71066d219121b4d
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+=======
+>>>>>>> ec788062c9569434337ddf03f71066d219121b4d
 
  public class Main {
  public static void main(String[] args) {
@@ -71,6 +82,10 @@ import javax.swing.SwingUtilities;
     
     ///START OF PROGRAM
     Classroom classroom = new Classroom(deskCount, studentCount, desks, roomNumber, periodNumber, students);
+<<<<<<< HEAD
+=======
+
+>>>>>>> ec788062c9569434337ddf03f71066d219121b4d
     System.out.println("Room number: " + classroom.getRoomNumber());
 		System.out.println("Number of rows: "+ classroom.getNumRows());
 		System.out.println("Number of colums: " +classroom.getNumCols());
@@ -190,4 +205,8 @@ import javax.swing.SwingUtilities;
   }
       
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ec788062c9569434337ddf03f71066d219121b4d
