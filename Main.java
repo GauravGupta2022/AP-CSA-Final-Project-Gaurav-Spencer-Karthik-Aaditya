@@ -1,26 +1,14 @@
-<<<<<<< HEAD
-=======
-import java.awt.Panel;
-import java.util.Scanner;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import java.lang.Math;
->>>>>>> ec788062c9569434337ddf03f71066d219121b4d
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.Scanner;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-=======
->>>>>>> ec788062c9569434337ddf03f71066d219121b4d
+
 
  public class Main {
  public static void main(String[] args) {
-
-   SwingUtilities.invokeLater(ClassroomGUI::new);
    JFrame frame = new JFrame("Classroom Layout");
    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     System.out.println("Start of program");
@@ -32,6 +20,7 @@ import javax.swing.SwingUtilities;
     int studentCount = -1;
     Desk[][] desks = null;
     ArrayList<Student> students = new ArrayList<Student>();
+
     
 
     //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
@@ -82,10 +71,7 @@ import javax.swing.SwingUtilities;
     
     ///START OF PROGRAM
     Classroom classroom = new Classroom(deskCount, studentCount, desks, roomNumber, periodNumber, students);
-<<<<<<< HEAD
-=======
 
->>>>>>> ec788062c9569434337ddf03f71066d219121b4d
     System.out.println("Room number: " + classroom.getRoomNumber());
 		System.out.println("Number of rows: "+ classroom.getNumRows());
 		System.out.println("Number of colums: " +classroom.getNumCols());
@@ -96,6 +82,7 @@ import javax.swing.SwingUtilities;
     }
 
     //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
+    ClassroomGUI gui = new ClassroomGUI(classroom);
 
     System.out.println("Welcome to Seating Plus!");
     Scanner input = new Scanner(System.in);
@@ -203,10 +190,7 @@ import javax.swing.SwingUtilities;
     }
     return desks;
   }
-      
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> ec788062c9569434337ddf03f71066d219121b4d
+
+
