@@ -26,6 +26,9 @@ public class Student {
    public int getWantedRow(){
     return wantedRow;
    }
+   public ArrayList<String> getGroupMembers(){
+    return groupMembers;
+   }
    public int getWantedCol(){
     return wantedCol;
    }
