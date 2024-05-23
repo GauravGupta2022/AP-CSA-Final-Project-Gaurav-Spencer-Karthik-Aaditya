@@ -10,7 +10,10 @@ import javax.swing.JFrame;
  public class Main {
  public static void main(String[] args) {
    JFrame frame = new JFrame("Classroom Layout");
-   //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
+   //List of available gridClassroom methods: fullRandom() [all students], eliteSeating() [GPA 1st choice], medicalFrontPreference()
+   //gridClassroom methods continued: medicalBackPreference(), singleRandom() [1 student], medicalWithRandom() [medical front/back, then fullRandom()]
+   //gridClassroom methods continued: gradePreference() [similar GPAs together], personalPreference() [sit with chosen friends] 
+   //List of available GroupClassrom methods (+ those in GridClassroom): groupChoosing()
     System.out.println("Start of program");
     String roomNumber = null;
     int periodNumber =-1;
@@ -21,9 +24,6 @@ import javax.swing.JFrame;
     Desk[][] desks = null;
     ArrayList<Student> students = new ArrayList<Student>();
 
-    
-
-    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     System.out.println("Start of textfile reading");
     try {
       //filereader creation
