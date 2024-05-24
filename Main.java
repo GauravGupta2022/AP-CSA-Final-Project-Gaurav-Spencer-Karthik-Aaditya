@@ -107,47 +107,45 @@ import java.util.Scanner;
   private static void setStudentAttributes(BufferedReader reader, ArrayList<Student> students, int studentCount) throws Exception {
     try {
       for (int i=0; i<studentCount; i++){
-        String s = reader.readLine();
-        students.add(new Student(s)); //names
-        System.out.println("STUDENT CREATED PROPERLY");
+        students.add(new Student(reader.readLine())); //names
       }
-      checkIfEmptyLine(reader, "Error: Student names");
+      checkIfEmptyLine(reader, "Error: Student name");
       for (int i=0; i<studentCount; i++){
         students.get(i).setId(reader.readLine()); //ids
       }
-      checkIfEmptyLine(reader, "Error: Student ids");
+      checkIfEmptyLine(reader, "Error: Student id");
       for (int i=0; i<studentCount; i++){
         students.get(i).setYear(getDigitsFromString(reader.readLine())); //years
       }
-      checkIfEmptyLine(reader, "Error: Student names");
+      checkIfEmptyLine(reader, "Error: Student year");
       for (int i=0; i<studentCount; i++){
         students.get(i).setHeight(getDigitsFromString(reader.readLine())); //height
       }
-      checkIfEmptyLine(reader, "Error: Student heights");
+      checkIfEmptyLine(reader, "Error: Student height");
       for (int i=0; i<studentCount; i++){
         students.get(i).setMedicalFrontPreference(getBooleanFromString(reader.readLine())); //medicalFrontPreference
       }
-      checkIfEmptyLine(reader, "Error: Student frontmedicalpreferences");
+      checkIfEmptyLine(reader, "Error: Student frontmedicalpreference");
       for (int i=0; i<studentCount; i++){
         students.get(i).setMedicalBackPreference(getBooleanFromString(reader.readLine())); //medicalBackPreference
       }
-      checkIfEmptyLine(reader, "Error: Student backmedicalpreferences");
+      checkIfEmptyLine(reader, "Error: Student backmedicalpreference");
       for (int i=0; i<studentCount; i++){
         students.get(i).setGrade(getDigitsFromString(reader.readLine())); //grade
       }
-      checkIfEmptyLine(reader, "Error: Student names");
+      checkIfEmptyLine(reader, "Error: Student grade");
       for (int i=0; i<studentCount; i++){
         students.get(i).setFriendID(reader.readLine()); //friendID
       }
-      checkIfEmptyLine(reader, "Error: Student names");
+      checkIfEmptyLine(reader, "Error: Student friendID");
       for (int i=0; i<studentCount; i++){
         students.get(i).setWantedRow(getDigitsFromString(reader.readLine())); //wantedRow
       }
-      checkIfEmptyLine(reader, "Error: Student names");
+      checkIfEmptyLine(reader, "Error: Student wantedRow");
       for (int i=0; i<studentCount; i++){
         students.get(i).setWantedCol(getDigitsFromString(reader.readLine())); //wantedCol
       }
-      checkIfEmptyLine(reader, "Error: Student names");
+      checkIfEmptyLine(reader, "Error: Student wantedCol");
     } catch (Exception e) {
       throw e;
     }
@@ -158,7 +156,7 @@ import java.util.Scanner;
     String temp = "";
     for (int i=0; i<s.length(); i++){
       char tempChar = s.charAt(i);
-      if(Character.isDigit(tempChar)){
+      if(Character.isDigit(tempChar) || tempChar == '.'){
         temp += tempChar;
       }
       else {
