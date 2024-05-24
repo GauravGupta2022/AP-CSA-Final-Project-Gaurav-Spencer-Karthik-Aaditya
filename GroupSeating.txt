@@ -1,0 +1,172 @@
+R211
+2nd Period
+6 rows
+6 columns
+30 desks
+XOOOOO
+OXOOOO
+OOXOOO
+OOOXOO
+OOOXOO
+OXOOOX
+30 students
+Grace Hopper
+John von Neumann
+Barbara Liskov
+Margaret Hamilton
+Donald Knuth
+Tim Berners-Lee
+Ada Lovelace
+Guido van Rossum
+Hewlett Packard
+Alan Turing
+Shafi Goldwasser
+Bjarne Stroustrup
+James Gosling
+Edsger W. Dijkstra
+Dennis Ritchie
+Frances Allen
+Marvin Minsky
+Katherine Johnson
+Bob Kahn
+Charles Babbage
+Alan Kay
+John McCarthy
+Kathleen Booth
+Martin Hellman
+Larry Page
+Kimberly Bryant
+Niklaus Wirth
+Anita Borg
+Anders Hejlsberg
+Vint Cerf
+054643
+054644
+054645
+054646
+054647
+054648
+054649
+054650
+054651
+054652
+054653
+054654
+054655
+054656
+054657
+054658
+054659
+054660
+054661
+054662
+054663
+054664
+054665
+054666
+054667
+054668
+054669
+054670
+054671
+054672
+9
+9
+9
+9
+9
+9
+10
+10
+10
+10
+10
+10
+10
+10
+10
+10
+10
+10
+11
+12
+11
+11
+11
+11
+11
+12
+12
+12
+12
+12
+51
+53
+50
+51
+54
+60
+59
+49
+61
+68
+54
+56
+57
+56
+55
+55
+55
+55
+55
+54
+56
+57
+56
+56
+56
+56
+54
+45
+45
+60
+true
+false
+true
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false
+false

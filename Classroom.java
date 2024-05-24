@@ -71,8 +71,13 @@ public class Classroom{
       this.deskCount = deskCount;
       this.studentCount = studentCount;
       this.desks = desks;
-      numRows = desks.length;
-      numCols = desks[0].length;
+      try {
+        numRows = desks.length;
+        numCols = desks[0].length;
+      } catch (Exception e) {
+        numRows = -1;
+        numCols = -1;
+      }
       this.roomNumber = roomNumber;
       this.periodNumber = periodNumber;
       this.studentList = students;

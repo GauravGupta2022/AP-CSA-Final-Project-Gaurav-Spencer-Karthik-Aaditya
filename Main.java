@@ -1,18 +1,14 @@
-import java.awt.Panel;
-import java.util.Scanner;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import java.lang.Math;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
  public class Main {
  public static void main(String[] args) {
 
-   SwingUtilities.invokeLater(ClassroomGUI::new);
-   JFrame frame = new JFrame("Classroom Layout");
+  //  SwingUtilities.invokeLater(ClassroomGUI::new);
+  //  JFrame frame = new JFrame("Classroom Layout");
    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     System.out.println("Start of program");
     String roomNumber = null;
@@ -29,7 +25,7 @@ import java.util.ArrayList;
     System.out.println("Start of textfile reading");
     try {
       //filereader creation
-			File teacherFile = new File("myFile.txt");
+			File teacherFile = new File("GridSeating.txt");
 			teacherFile.createNewFile();
 			FileReader fileReader = new FileReader(teacherFile);
 			BufferedReader reader = new BufferedReader(fileReader);
@@ -47,6 +43,7 @@ import java.util.ArrayList;
         }
       }
       studentCount = getDigitsFromString(reader.readLine());
+      checkIfEmptyLine(reader, "Error: Student names");
       setStudentAttributes(reader, students, studentCount);
 
       
@@ -56,7 +53,7 @@ import java.util.ArrayList;
 		} catch (NumberFormatException e) {
 			System.out.println("There was error with INPUT!");
 		} catch (NullPointerException e){
-      System.out.println("An object was not initialized properly (NullPointerException)");
+      // System.out.println("An object was not initialized properly (NullPointerException)");
     } catch (ArrayIndexOutOfBoundsException e){
       System.out.println("Your inputs did not match the number of arguments (AIOOBE)");
     }
@@ -110,35 +107,47 @@ import java.util.ArrayList;
   private static void setStudentAttributes(BufferedReader reader, ArrayList<Student> students, int studentCount) throws Exception {
     try {
       for (int i=0; i<studentCount; i++){
-        students.add(new Student(reader.readLine())); //names
+        String s = reader.readLine();
+        students.add(new Student(s)); //names
+        System.out.println("STUDENT CREATED PROPERLY");
       }
+      checkIfEmptyLine(reader, "Error: Student names");
       for (int i=0; i<studentCount; i++){
         students.get(i).setId(reader.readLine()); //ids
       }
+      checkIfEmptyLine(reader, "Error: Student ids");
       for (int i=0; i<studentCount; i++){
         students.get(i).setYear(getDigitsFromString(reader.readLine())); //years
       }
+      checkIfEmptyLine(reader, "Error: Student names");
       for (int i=0; i<studentCount; i++){
         students.get(i).setHeight(getDigitsFromString(reader.readLine())); //height
       }
+      checkIfEmptyLine(reader, "Error: Student heights");
       for (int i=0; i<studentCount; i++){
         students.get(i).setMedicalFrontPreference(getBooleanFromString(reader.readLine())); //medicalFrontPreference
       }
+      checkIfEmptyLine(reader, "Error: Student frontmedicalpreferences");
       for (int i=0; i<studentCount; i++){
         students.get(i).setMedicalBackPreference(getBooleanFromString(reader.readLine())); //medicalBackPreference
       }
+      checkIfEmptyLine(reader, "Error: Student backmedicalpreferences");
       for (int i=0; i<studentCount; i++){
         students.get(i).setGrade(getDigitsFromString(reader.readLine())); //grade
       }
+      checkIfEmptyLine(reader, "Error: Student names");
       for (int i=0; i<studentCount; i++){
         students.get(i).setFriendID(reader.readLine()); //friendID
       }
+      checkIfEmptyLine(reader, "Error: Student names");
       for (int i=0; i<studentCount; i++){
         students.get(i).setWantedRow(getDigitsFromString(reader.readLine())); //wantedRow
       }
+      checkIfEmptyLine(reader, "Error: Student names");
       for (int i=0; i<studentCount; i++){
         students.get(i).setWantedCol(getDigitsFromString(reader.readLine())); //wantedCol
       }
+      checkIfEmptyLine(reader, "Error: Student names");
     } catch (Exception e) {
       throw e;
     }
@@ -160,13 +169,21 @@ import java.util.ArrayList;
   }
 
   private static boolean getBooleanFromString(String s) throws Exception {
-    if (s.length()==4 && s.substring(0, 4).equals("true")){
+    s = s.toLowerCase();
+    if (s.length()==4 && s.substring(0, 4).equals("true") || s.length()==3 && s.substring(0,3).equals("yes")){
       return true;
     }
-    else if (s.length()==5 && s.substring(0, 5).equals("false")) {
+    else if (s.length()==5 && s.substring(0, 5).equals("false") || s.length()==2 && s.substring(0, 2).equals("no")) {
       return false;
     }
     throw new Exception();
+  }
+
+  private static boolean checkIfEmptyLine(BufferedReader reader, String errorMessage) throws Exception {
+    if (!reader.readLine().isEmpty()){
+      throw new Exception(errorMessage);
+    }
+    return true;
   }
 
   private static Desk[][] getValidDesks(int numRows, int numCols, BufferedReader reader) throws Exception {

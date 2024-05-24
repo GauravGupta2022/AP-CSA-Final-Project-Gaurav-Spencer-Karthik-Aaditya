@@ -10,6 +10,7 @@ OOOXOO
 OOOXOO
 OXOOOX
 30 students
+
 Grace Hopper
 John von Neumann
 Barbara Liskov
@@ -40,6 +41,7 @@ Niklaus Wirth
 Anita Borg
 Anders Hejlsberg
 Vint Cerf
+
 054643
 054644
 054645
@@ -130,4 +132,5 @@ Vint Cerf
 45
 45
 60
+
 
