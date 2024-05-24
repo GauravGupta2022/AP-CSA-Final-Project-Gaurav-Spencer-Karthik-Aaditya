@@ -4,16 +4,15 @@ import java.lang.Math;
 
 public class Classroom{
   
-    private int deskCount;
-    private int studentCount;
-    private Desk[][] desks;
-    private int numRows;
-    private int numCols;
-    private String roomNumber;
-    private int periodNumber;
-    private boolean isGroup = false;
-    private ArrayList<Student> studentList = new ArrayList<Student>();
-    private int numInGroup = 0;
+    protected int deskCount;
+    protected int studentCount;
+    protected Desk[][] desks;
+    protected int numRows;
+    protected int numCols;
+    protected String roomNumber;
+    protected int periodNumber;
+    protected boolean isGroup = false;
+    protected ArrayList<Student> studentList = new ArrayList<Student>();
 
     public void setIsGroup(boolean b){
       isGroup = b;
@@ -71,22 +70,16 @@ public class Classroom{
       this.deskCount = deskCount;
       this.studentCount = studentCount;
       this.desks = desks;
-      numRows = desks.length;
-      numCols = desks[0].length;
+      try {
+        numRows = desks.length;
+        numCols = desks[0].length;
+      } catch (Exception e) {
+        numRows = -1;
+        numCols = -1;
+      }
       this.roomNumber = roomNumber;
       this.periodNumber = periodNumber;
       this.studentList = students;
-    }
-    public Classroom (int deskCount, int studentCount, Desk[][] desks, String roomNumber, int periodNumber, ArrayList<Student> students, int num){
-      this.deskCount = deskCount;
-      this.studentCount = studentCount;
-      this.desks = desks;
-      numRows = desks.length;
-      numCols = desks[0].length;
-      this.roomNumber = roomNumber;
-      this.periodNumber = periodNumber;
-      this.studentList = students;
-      this.numInGroup = num;
     }
     public Classroom(){
       this.deskCount = 0;
@@ -134,9 +127,6 @@ public class Classroom{
           newList.add(studentList.get(i));
         }
       }
-
-      //more code
-
       int count = 0;
       while (count<newList.size()){
         int row = newList.get(count).getWantedRow();
@@ -234,93 +224,6 @@ public class Classroom{
         fullRandom();
       }
       
-
-
-      public void groupChoosing(){
-        medicalBackPreference();
-        medicalFrontPreference();
-        //takes first person in student list, places him in group, takes his friends (if they exist) and places them in group
-        //if no friends, then skip the group until the others are filled and then randomize it
-        int count = 0;
-        for(int r = 0; r < desks.length; r++){
-          for(int c = 0; c < desks[0].length; c++){
-            if(desks[r][c] != null && desks[r][c].getOccupied() == false && desks[r][c].getChecked() == false){
-              if(studentList.size() > 0){
-                Student s = studentList.remove(count);
-                desks[r][c].seat(s);
-                
-                count++;
-       
-                int count3 = 0;
-                int x = r;
-                int y = c;
-                boolean flag = true;
-              
-                  while(true){
-                    if (x < 0 || x >= desks.length || y < 0 || y >= desks[0].length) {
-                      break;
-                  }
-                    if(desks[x][y] != null && s.getGroupMembers().size() > 0 && desks[x][y].getOccupied() == false ){
-                      desks[x][y].seat(findStudent(s.getGroupMembers().remove(0)));
-        
-                      if(flag == true){
-                        y++;
-                        
-                      }
-                      else{
-                        count3++;
-                        y--;
-                      }
-                      
-                    }
-                    else if(desks[x][y] == null && flag == false){
-                      if(count3 == 0){
-                        break;
-                      }
-                      x++;
-                      y--;
-                      count3 = 0;
-                      flag = !flag;
-
-                    
-
-                    }
-                    else if(desks[x][y] == null && flag == true){
-                      if(count3 == 0){
-                        break;
-                      }
-                      x++;
-                      y++;
-                      count3 = 0;
-                      flag = !flag;
-
-                    }
-                    
-                  }
-                
-
-
-              }
-            }
-            
-          }
-        }
-        //code to randomize remaining seats
-        fullRandom();
-      }
-
-
-
-
-
-
-
-
-
-
-
-
-        
         public Student findStudentWithGrade(double num){ //Finds a student in the grade of the num parameter
         for (int i=0;i<studentList.size();i++){
           if (studentList.get(i).getGrade()==num){
@@ -332,7 +235,7 @@ public class Classroom{
       public void gradePreference(){ //Seats one student with the same grade next to one another
         double currGrade = 0;
         for (int row=0;row<desks.length;row++){
-          for (int col=0;col<desks[0].length;col++){
+          for (int col=0;col<desks[0].length; col++){
             if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currGrade = desks[row][col].getStudent().getGrade();
               if(isGroup == true){
@@ -385,13 +288,13 @@ public class Classroom{
         }
       }
       }
-      public void personalPreference(){ //Seats one student (who was  selected by the original student) next to one another
+      public void personalPreference(){ //Seats one student (who was selected by the original student) next to one another
         String currFriendID = "";
         for (int row=0;row<desks.length;row++){
           for (int col=0;col<desks[0].length;col++){
             if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currFriendID = desks[row][col].getStudent().getFriendID();
-            if(isGroup == false){
+            
               if (isNearbyDeskEmpty(row, col).equals("Right") && (col+2)<desks[0].length){
                 desks[row][col+2].seat(findStudent(currFriendID));
                 studentList.remove(findStudent(currFriendID));
@@ -412,32 +315,8 @@ public class Classroom{
                 studentList.remove(findStudent(currFriendID));
                 break;
               }
-            }
-              else{
-                if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
-                desks[row][col+1].seat(findStudent(currFriendID));
-                studentList.remove(findStudent(currFriendID));
-                break;
-              }
-              else if (isNearbyDeskEmpty(row, col).equals("Left") && (col-1)>-1){
-                desks[row][col-1].seat(findStudent(currFriendID));
-                studentList.remove(findStudent(currFriendID));
-                break;
-              }
-              else if (isNearbyDeskEmpty(row, col).equals("Down") && (row+1)<desks.length){
-                desks[row+1][col].seat(findStudent(currFriendID));
-                studentList.remove(findStudent(currFriendID));
-                break;
-              }
-              else if (isNearbyDeskEmpty(row,col).equals("Up") && (row-1)>-1){
-                desks[row-1][col].seat(findStudent(currFriendID));
-                studentList.remove(findStudent(currFriendID));
-                break;
-              }
-
-
-                
-              } 
+            
+              
           }
           }
           break;
@@ -452,39 +331,42 @@ public class Classroom{
         }
         return null;
       }
-      public String isNearbyDeskEmpty(int r, int c){
+      
+
+
+public String isNearbyDeskEmpty(int r, int c){
         String result = "";
         if(desks[r][c] != null){
-          if(r > 1 && r != desks.length-2 && c > 1 && c != desks[0].length -2){
-            if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null) || (desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
+          if(r > 0 && r != desks.length-2 && c > 0 && c != desks[0].length -2){
+            if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null)){
               result = "Right";
 
             }
-            else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null) || (desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
+            else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null)){
               result = "Left";
             }
-            else if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null) || (desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
+            else if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null)){
               result = "Up";
             }
-            else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null) || (desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
+            else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null)){
               result = "Down";
             }
           }
-          else if((r == 0 || r == 1) || (r== desks.length - 1 || r == desks.length - 2)){
-            if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null) || (desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
+          else if(( r == 0) || (r== desks.length - 1 )){
+            if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null)){
               result = "Right";
 
             }
-            else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null) || (desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
+            else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null)){
               result = "Left";
             }
 
           }
-          else if((c == 0 || c ==1) || (c == desks[0].length - 1 || c == desks.length -2)){
-             if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null) || (desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
+          else if((c == 0) || (c == desks[0].length - 1)){
+             if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null)){
               result = "Up";
             }
-            else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null) || (desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
+            else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null)){
               result = "Down";
             }
         }
@@ -493,5 +375,7 @@ public class Classroom{
       }
           return result;
 } 
+
+  
 
 }

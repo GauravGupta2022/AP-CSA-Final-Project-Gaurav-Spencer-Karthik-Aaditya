@@ -4,12 +4,20 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Scanner;
 import javax.swing.JFrame;
 
 
  public class Main {
  public static void main(String[] args) {
    JFrame frame = new JFrame("Classroom Layout");
+   //List of available gridClassroom methods: fullRandom() [all students], eliteSeating() [GPA 1st choice], medicalFrontPreference()
+   //gridClassroom methods continued: medicalBackPreference(), singleRandom() [1 student], medicalWithRandom() [medical front/back, then fullRandom()]
+   //gridClassroom methods continued: gradePreference() [similar GPAs together], personalPreference() [sit with chosen friends] 
+   //List of available GroupClassrom methods (+ those in GridClassroom): groupChoosing()
+
+  //  SwingUtilities.invokeLater(ClassroomGUI::new);
+  //  JFrame frame = new JFrame("Classroom Layout");
    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     System.out.println("Start of program");
     String roomNumber = null;
@@ -21,13 +29,10 @@ import javax.swing.JFrame;
     Desk[][] desks = null;
     ArrayList<Student> students = new ArrayList<Student>();
 
-    
-
-    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     System.out.println("Start of textfile reading");
     try {
       //filereader creation
-			File teacherFile = new File("myFile.txt");
+			File teacherFile = new File("GridSeating.txt");
 			teacherFile.createNewFile();
 			FileReader fileReader = new FileReader(teacherFile);
 			BufferedReader reader = new BufferedReader(fileReader);
@@ -45,6 +50,7 @@ import javax.swing.JFrame;
         }
       }
       studentCount = getDigitsFromString(reader.readLine());
+      checkIfEmptyLine(reader, "Error: Student names");
       setStudentAttributes(reader, students, studentCount);
 
       
@@ -54,7 +60,7 @@ import javax.swing.JFrame;
 		} catch (NumberFormatException e) {
 			System.out.println("There was error with INPUT!");
 		} catch (NullPointerException e){
-      System.out.println("An object was not initialized properly (NullPointerException)");
+      // System.out.println("An object was not initialized properly (NullPointerException)");
     } catch (ArrayIndexOutOfBoundsException e){
       System.out.println("Your inputs did not match the number of arguments (AIOOBE)");
     }
@@ -111,33 +117,43 @@ import javax.swing.JFrame;
       for (int i=0; i<studentCount; i++){
         students.add(new Student(reader.readLine())); //names
       }
+      checkIfEmptyLine(reader, "Error: Student name");
       for (int i=0; i<studentCount; i++){
         students.get(i).setId(reader.readLine()); //ids
       }
+      checkIfEmptyLine(reader, "Error: Student id");
       for (int i=0; i<studentCount; i++){
         students.get(i).setYear(getDigitsFromString(reader.readLine())); //years
       }
+      checkIfEmptyLine(reader, "Error: Student year");
       for (int i=0; i<studentCount; i++){
         students.get(i).setHeight(getDigitsFromString(reader.readLine())); //height
       }
+      checkIfEmptyLine(reader, "Error: Student height");
       for (int i=0; i<studentCount; i++){
         students.get(i).setMedicalFrontPreference(getBooleanFromString(reader.readLine())); //medicalFrontPreference
       }
+      checkIfEmptyLine(reader, "Error: Student frontmedicalpreference");
       for (int i=0; i<studentCount; i++){
         students.get(i).setMedicalBackPreference(getBooleanFromString(reader.readLine())); //medicalBackPreference
       }
+      checkIfEmptyLine(reader, "Error: Student backmedicalpreference");
       for (int i=0; i<studentCount; i++){
         students.get(i).setGrade(getDigitsFromString(reader.readLine())); //grade
       }
+      checkIfEmptyLine(reader, "Error: Student grade");
       for (int i=0; i<studentCount; i++){
         students.get(i).setFriendID(reader.readLine()); //friendID
       }
+      checkIfEmptyLine(reader, "Error: Student friendID");
       for (int i=0; i<studentCount; i++){
         students.get(i).setWantedRow(getDigitsFromString(reader.readLine())); //wantedRow
       }
+      checkIfEmptyLine(reader, "Error: Student wantedRow");
       for (int i=0; i<studentCount; i++){
         students.get(i).setWantedCol(getDigitsFromString(reader.readLine())); //wantedCol
       }
+      checkIfEmptyLine(reader, "Error: Student wantedCol");
     } catch (Exception e) {
       throw e;
     }
@@ -148,7 +164,7 @@ import javax.swing.JFrame;
     String temp = "";
     for (int i=0; i<s.length(); i++){
       char tempChar = s.charAt(i);
-      if(Character.isDigit(tempChar)){
+      if(Character.isDigit(tempChar) || tempChar == '.'){
         temp += tempChar;
       }
       else {
@@ -159,13 +175,21 @@ import javax.swing.JFrame;
   }
 
   private static boolean getBooleanFromString(String s) throws Exception {
-    if (s.length()==4 && s.substring(0, 4).equals("true")){
+    s = s.toLowerCase();
+    if (s.length()==4 && s.substring(0, 4).equals("true") || s.length()==3 && s.substring(0,3).equals("yes")){
       return true;
     }
-    else if (s.length()==5 && s.substring(0, 5).equals("false")) {
+    else if (s.length()==5 && s.substring(0, 5).equals("false") || s.length()==2 && s.substring(0, 2).equals("no")) {
       return false;
     }
     throw new Exception();
+  }
+
+  private static boolean checkIfEmptyLine(BufferedReader reader, String errorMessage) throws Exception {
+    if (!reader.readLine().isEmpty()){
+      throw new Exception(errorMessage);
+    }
+    return true;
   }
 
   private static Desk[][] getValidDesks(int numRows, int numCols, BufferedReader reader) throws Exception {
