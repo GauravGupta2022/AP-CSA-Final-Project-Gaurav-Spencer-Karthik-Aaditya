@@ -23,7 +23,6 @@ public class ClassroomGUI {
         updateButton.addActionListener(e -> {
             try {
                 totalDesks = Integer.parseInt(deskField.getText());
-                initializeDesks();
                 frame.repaint();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame, "Please enter a valid number.");
@@ -98,6 +97,8 @@ public class ClassroomGUI {
                         // Display the student info in each table
                         g.drawString(desks[row][col].getStudent().getName(), x + 5, y + 20);
                         g.drawString(String.valueOf(desks[row][col].getStudent().getID()), x + 5, y + 40);
+
+                        System.out.println("Table at (" + x + ", " + y + ") with Student: " + desks[row][col].getStudent().getName() + " (" + desks[row][col].getStudent().getID() + ")");
                     }
                 }
             }
@@ -138,5 +139,3 @@ public class ClassroomGUI {
         }
     }
 }
-
-
