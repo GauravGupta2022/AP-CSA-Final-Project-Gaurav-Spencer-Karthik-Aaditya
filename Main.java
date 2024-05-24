@@ -1,11 +1,20 @@
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Scanner;
+import javax.swing.JFrame;
+
 
  public class Main {
  public static void main(String[] args) {
+   JFrame frame = new JFrame("Classroom Layout");
+   //List of available gridClassroom methods: fullRandom() [all students], eliteSeating() [GPA 1st choice], medicalFrontPreference()
+   //gridClassroom methods continued: medicalBackPreference(), singleRandom() [1 student], medicalWithRandom() [medical front/back, then fullRandom()]
+   //gridClassroom methods continued: gradePreference() [similar GPAs together], personalPreference() [sit with chosen friends] 
+   //List of available GroupClassrom methods (+ those in GridClassroom): groupChoosing()
 
   //  SwingUtilities.invokeLater(ClassroomGUI::new);
   //  JFrame frame = new JFrame("Classroom Layout");
@@ -19,9 +28,7 @@ import java.util.Scanner;
     int studentCount = -1;
     Desk[][] desks = null;
     ArrayList<Student> students = new ArrayList<Student>();
-    
 
-    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     System.out.println("Start of textfile reading");
     try {
       //filereader creation
@@ -81,6 +88,7 @@ import java.util.Scanner;
     }
 
     //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
+    ClassroomGUI gui = new ClassroomGUI(classroom);
 
     System.out.println("Welcome to Seating Plus!");
     Scanner input = new Scanner(System.in);
@@ -206,6 +214,7 @@ import java.util.Scanner;
     }
     return desks;
   }
-      
 
 }
+
+

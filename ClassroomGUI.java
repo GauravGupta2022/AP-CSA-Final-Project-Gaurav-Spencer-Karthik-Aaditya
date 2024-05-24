@@ -1,11 +1,15 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class ClassroomGUI {
     private int totalDesks;
     private boolean isStudentView = false;
+    private Desk[][] desks;
+    private Classroom classroom; // Assuming Classroom is defined elsewhere
 
-    public ClassroomGUI() {
+    public ClassroomGUI(Classroom classroom) {
+        this.classroom = classroom;
+        desks = classroom.getDesks();
         JFrame frame = new JFrame("Classroom Layout");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -19,6 +23,7 @@ public class ClassroomGUI {
         updateButton.addActionListener(e -> {
             try {
                 totalDesks = Integer.parseInt(deskField.getText());
+                initializeDesks();
                 frame.repaint();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame, "Please enter a valid number.");
@@ -52,49 +57,48 @@ public class ClassroomGUI {
                 drawTeacherView(g);
             }
 
-            // Draw tables with panels showing desks
-            g.setColor(Color.GRAY);
-            int tableWidth = 80;
-            int tableHeight = 60;
-            int panelWidth = tableWidth / 2;
-            int panelHeight = tableHeight / 2;
-            int tableGap = 20;
+            if (desks != null) {
+                // Draw tables with panels showing desks
+                g.setColor(Color.GRAY);
+                int tableWidth = 80;
+                int tableHeight = 60;
+                int panelWidth = tableWidth / 2;
+                int panelHeight = tableHeight / 2;
+                int tableGap = 20;
 
-            int startX = 100;
-            int startY = 70;
-            int rows = 4;
-            int cols = 5;
+                int startX = 100;
+                int startY = 70;
+                int rows = 4;
+                int cols = 5;
 
-            int desksPerTable = totalDesks / (rows * cols);
-            int remainingDesks = totalDesks % (rows * cols);
+                int deskIndex = 0;
 
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < cols; col++) {
-                    int x = startX + col * (tableWidth + tableGap);
-                    int y = startY + row * (tableHeight + tableGap);
+                for (int row = 0; row < rows; row++) {
+                    for (int col = 0; col < cols; col++) {
+                        if (deskIndex >= totalDesks) break;
 
-                    g.fillRect(x, y, tableWidth, tableHeight);
+                        int x = startX + col * (tableWidth + tableGap);
+                        int y = startY + row * (tableHeight + tableGap);
 
-                    // Draw the four panels inside each table
-                    g.setColor(Color.LIGHT_GRAY);
-                    g.fillRect(x, y, panelWidth, panelHeight);
-                    g.fillRect(x + panelWidth, y, panelWidth, panelHeight);
-                    g.fillRect(x, y + panelHeight, panelWidth, panelHeight);
-                    g.fillRect(x + panelWidth, y + panelHeight, panelWidth, panelHeight);
+                        g.fillRect(x, y, tableWidth, tableHeight);
 
-                    g.setColor(Color.BLACK);
-                    g.drawRect(x, y, panelWidth, panelHeight);
-                    g.drawRect(x + panelWidth, y, panelWidth, panelHeight);
-                    g.drawRect(x, y + panelHeight, panelWidth, panelHeight);
-                    g.drawRect(x + panelWidth, y + panelHeight, panelWidth, panelHeight);
+                        // Draw the four panels inside each table
+                        g.setColor(Color.LIGHT_GRAY);
+                        g.fillRect(x, y, panelWidth, panelHeight);
+                        g.fillRect(x + panelWidth, y, panelWidth, panelHeight);
+                        g.fillRect(x, y + panelHeight, panelWidth, panelHeight);
+                        g.fillRect(x + panelWidth, y + panelHeight, panelWidth, panelHeight);
 
-                    // Display the number of desks in each table
-                    int desksInThisTable = desksPerTable;
-                    if (remainingDesks > 0) {
-                        desksInThisTable++;
-                        remainingDesks--;
+                        g.setColor(Color.BLACK);
+                        g.drawRect(x, y, panelWidth, panelHeight);
+                        g.drawRect(x + panelWidth, y, panelWidth, panelHeight);
+                        g.drawRect(x, y + panelHeight, panelWidth, panelHeight);
+                        g.drawRect(x + panelWidth, y + panelHeight, panelWidth, panelHeight);
+
+                        // Display the student info in each table
+                        g.drawString(desks[row][col].getStudent().getName(), x + 5, y + 20);
+                        g.drawString(String.valueOf(desks[row][col].getStudent().getID()), x + 5, y + 40);
                     }
-                    g.drawString(String.valueOf(desksInThisTable), x + (tableWidth / 2) - 5, y + (tableHeight / 2));
                 }
             }
 
@@ -134,3 +138,5 @@ public class ClassroomGUI {
         }
     }
 }
+
+
