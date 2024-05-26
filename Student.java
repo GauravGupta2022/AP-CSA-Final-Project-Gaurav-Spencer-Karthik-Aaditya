@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class Student {
    private double grade; // grade in the class
-   private int year; // gradelevel
+   private int year; // grade level
    private String name;
    private double height;
    private String id;
@@ -11,6 +11,7 @@ public class Student {
    private int wantedRow;
    private int wantedCol;
    private ArrayList<String> groupMembers = new ArrayList<String>();
+   private String enemyID;
    public Student() {
      grade = 0.0;
      year = 9;
@@ -22,9 +23,13 @@ public class Student {
      friendID = "000000";
      wantedRow = -1;
      wantedCol = -1;
+     enemyID = "000000";
    }
    public int getWantedRow(){
     return wantedRow;
+   }
+   public String getEnemyID(){
+    return enemyID;
    }
    public ArrayList<String> getGroupMembers(){
     return groupMembers;
@@ -39,7 +44,7 @@ public class Student {
     this.wantedCol = wantedCol;
    }
  
-   public Student(double grade, int year, String name, double height, String id, boolean medicalFrontPreference, boolean medicalBackPreference) {
+   public Student(double grade, int year, String name, double height, String id, boolean medicalFrontPreference, boolean medicalBackPreference, String friendID, int wantedRow, int wantedCol) {
      this.grade = grade;
      this.year = year;
      this.name = name;
