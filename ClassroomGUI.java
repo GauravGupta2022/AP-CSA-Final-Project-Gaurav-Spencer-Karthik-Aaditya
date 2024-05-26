@@ -41,13 +41,23 @@ public class ClassroomGUI {
         controlPanel.add(toggleViewButton);
 
         frame.add(controlPanel, BorderLayout.NORTH);
-        frame.add(new ClassroomPanel(), BorderLayout.CENTER);
+        frame.add(new ClassroomPanel(desks, isStudentView, totalDesks), BorderLayout.CENTER);
         frame.setVisible(true);
     }
 
     class ClassroomPanel extends JPanel {
+        private Desk[][] desks;
+        private boolean isStudentView;
+        private int totalDesks;
+
+        public ClassroomPanel(Desk[][] desks, boolean isStudentView, int totalDesks) {
+            this.desks = desks;
+            this.isStudentView = isStudentView;
+            this.totalDesks = totalDesks;
+        }
+
         @Override
-        protected void paintComponent(Graphics g) {
+        public void paintComponent(Graphics g) {
             super.paintComponent(g);
 
             if (isStudentView) {
@@ -67,8 +77,8 @@ public class ClassroomGUI {
 
                 int startX = 100;
                 int startY = 70;
-                int rows = 4;
-                int cols = 5;
+                int rows = desks.length;
+                int cols = desks[0].length;
 
                 int deskIndex = 0;
 
@@ -95,10 +105,14 @@ public class ClassroomGUI {
                         g.drawRect(x + panelWidth, y + panelHeight, panelWidth, panelHeight);
 
                         // Display the student info in each table
-                        g.drawString(desks[row][col].getStudent().getName(), x + 5, y + 20);
-                        g.drawString(String.valueOf(desks[row][col].getStudent().getID()), x + 5, y + 40);
+                        if (desks[row][col] != null && desks[row][col].getStudent() != null) {
+                            String studentName = desks[row][col].getStudent().getName();
+                            g.drawString(studentName, x + 5, y + 20);
+                            String studentId = desks[row][col].getStudent().getID();
+                            g.drawString(studentId, x + 5, y + 40);
 
-                        System.out.println("Table at (" + x + ", " + y + ") with Student: " + desks[row][col].getStudent().getName() + " (" + desks[row][col].getStudent().getID() + ")");
+                            System.out.println("Table at (" + x + ", " + y + ") with Student: " + studentName + " (" + studentId + ")");
+                        }
                     }
                 }
             }
