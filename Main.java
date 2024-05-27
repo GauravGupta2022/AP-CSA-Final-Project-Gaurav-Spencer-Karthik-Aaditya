@@ -31,10 +31,7 @@ import javax.swing.JFrame;
     Desk[][] desks = null;
     ArrayList<Student> students = new ArrayList<Student>();
     int numInGroup = -1; //group seating
-<<<<<<< HEAD
 
-=======
->>>>>>> ac8b2381e216e63966f2660eda9a907b30467a93
 
     System.out.println("Start of textfile reading");
     try {
