@@ -20,6 +20,7 @@ import javax.swing.JFrame;
    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     
    boolean usingGridSeating = true; //false = group seating
+   final String textFileName = "GridSeating.txt";
 
    //variables to be filled in from Classroom
     String roomNumber = null;
@@ -31,25 +32,21 @@ import javax.swing.JFrame;
     Desk[][] desks = null;
     ArrayList<Student> students = new ArrayList<Student>();
     int numInGroup = -1; //group seating
-<<<<<<< HEAD
-
-=======
->>>>>>> ac8b2381e216e63966f2660eda9a907b30467a93
 
     System.out.println("Start of textfile reading");
     try {
       //filereader creation
-			File teacherFile;
-      if (usingGridSeating){
-        teacherFile = new File("GridSeating.txt");
-      } 
-      else {
-        teacherFile = new File("GroupSeating.txt");
-      }
+			File teacherFile = new File(textFileName);
 			teacherFile.createNewFile();
 			FileReader fileReader = new FileReader(teacherFile);
 			BufferedReader reader = new BufferedReader(fileReader);
 			
+      if (reader.readLine().contains("grid")){
+        usingGridSeating = true;
+      }
+      else {
+        usingGridSeating = false;
+      } 
 			roomNumber = reader.readLine();
       periodNumber = getIntFromString(reader.readLine());
 			numRows = getIntFromString(reader.readLine());

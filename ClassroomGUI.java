@@ -179,7 +179,7 @@ public class ClassroomGUI {
 
         private void drawGridSeating(Graphics g) {
             // Implement the grid seating layout
-            g.setColor(Color.);
+            g.setColor(Color);
             int deskWidth = 60;
             int deskHeight = 40;
             int deskGap = 10;
