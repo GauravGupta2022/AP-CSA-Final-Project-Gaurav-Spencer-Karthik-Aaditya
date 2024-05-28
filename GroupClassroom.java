@@ -96,47 +96,41 @@ public class GroupClassroom extends Classroom{
         //code to randomize remaining seats
         fullRandom();
       }
-      public String isNearbyDeskEmpty(int r, int c){
+      public String isNearbyDeskEmpty(int r, int c) {
         String result = "";
-        if(desks[r][c] != null){
-          if(r > 0 && r != desks.length-2 && c > 0 && c != desks[0].length -2){
-            if((desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
-              result = "Right";
-
-            }
-            else if((desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
-              result = "Left";
-            }
-            else if((desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
-              result = "Up";
-            }
-            else if((desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
-              result = "Down";
-            }
-          }
-          else if((r == 0) || (r== desks.length - 1)){
-            if((desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
-              result = "Right";
-
-            }
-            else if((desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
-              result = "Left";
-            }
-
-          }
-          else if((c == 0 ) || (c == desks[0].length - 1)){
-             if((desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
-              result = "Up";
-            }
-            else if((desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
-              result = "Down";
+        if (desks[r][c] != null) {
+            
+            if (r > 0 && r < desks.length - 1 && c > 0 && c < desks[0].length - 1) {
+                if (desks[r][c + 1] != null && !desks[r][c + 1].getOccupied()) {
+                    result = "Right";
+                } else if (desks[r][c - 1] != null && !desks[r][c - 1].getOccupied()) {
+                    result = "Left";
+                } else if (desks[r - 1][c] != null && !desks[r - 1][c].getOccupied()) {
+                    result = "Up";
+                } else if (desks[r + 1][c] != null && !desks[r + 1][c].getOccupied()) {
+                    result = "Down";
+                }
+            } else {
+                
+                if (r == 0 || r == desks.length - 1) {
+                    if (c < desks[0].length - 1 && desks[r][c + 1] != null && !desks[r][c + 1].getOccupied()) {
+                        result = "Right";
+                    } else if (c > 0 && desks[r][c - 1] != null && !desks[r][c - 1].getOccupied()) {
+                        result = "Left";
+                    }
+                }
+                if (c == 0 || c == desks[0].length - 1) {
+                    if (r < desks.length - 1 && desks[r + 1][c] != null && !desks[r + 1][c].getOccupied()) {
+                        result = "Down";
+                    } else if (r > 0 && desks[r - 1][c] != null && !desks[r - 1][c].getOccupied()) {
+                        result = "Up";
+                    }
+                }
             }
         }
-        
-       
-      }
-          return result;
-      }
+        return result;
+    }
+      
       public void personalPreference(String soughtID){ //Seats one student (who was  selected by the original student) next to one another
         String currFriendID = "";
         for (int row=0;row<desks.length;row++){
@@ -175,3 +169,4 @@ public class GroupClassroom extends Classroom{
         }
       }
 } 
+
