@@ -203,7 +203,7 @@ public class Classroom{
         
         for (int r = 0; r < desks.length; r++){
             for (int c = 0; c < desks[0].length; c++){
-                if (desks[r][c]!=null){
+                if (desks[r][c]!=null && desks[r][c].getOccupied()== false){
                     if (studentList.size()>0){
                         rand = (int)Math.random()*studentList.size();
                         desks[r][c].seat(studentList.get(rand));
@@ -218,6 +218,7 @@ public class Classroom{
         return null;
       }
 
+
       public void medicalWithRandom(){
         medicalBackPreference();
         medicalFrontPreference();
@@ -226,7 +227,7 @@ public class Classroom{
       
         public Student findStudentWithGrade(double num){ //Finds a student in the grade of the num parameter
         for (int i=0;i<studentList.size();i++){
-          if (studentList.get(i).getGrade()==num){
+          if (Math.abs(studentList.get(i).getGrade()-num)<= 0.5){
             return studentList.get(i);
           }
         }
