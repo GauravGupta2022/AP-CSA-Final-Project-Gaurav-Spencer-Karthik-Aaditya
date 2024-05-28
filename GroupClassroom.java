@@ -38,8 +38,12 @@ public class GroupClassroom extends Classroom{
                 boolean flag = true;
                 int count = 0;
                   while(true){
-                    if (x < 0 || x >= desks.length || y < 0 || y >= desks[0].length) {
+                    if (x < r || x >= desks.length || y < c || y >= desks[0].length) {
                       break;
+
+                  }
+                  if(desks[x+1][y]==null){
+                    break;
                   }
                     if(desks[x][y] != null && s.getGroupMembers().size() > 0 && desks[x][y].getOccupied() == false ){
                       desks[x][y].seat(findStudent(s.getGroupMembers().remove(0)));
@@ -54,8 +58,8 @@ public class GroupClassroom extends Classroom{
                       }
                       
                     }
-                    else if(desks[x][y] == null && flag == false){
-                      if(count > numInGroup){
+                    else if(desks[x][y] == null && flag == true){
+                      if(count >= numInGroup){
                         break;
                       }
                       x++;
@@ -66,8 +70,8 @@ public class GroupClassroom extends Classroom{
                     
 
                     }
-                    else if(desks[x][y] == null && flag == true){
-                      if(count > numInGroup){
+                    else if(desks[x][y] == null && flag == false){
+                      if(count >= numInGroup){
                         break;
                       }
                       x++;
@@ -133,11 +137,11 @@ public class GroupClassroom extends Classroom{
       }
           return result;
       }
-      public void personalPreference(){ //Seats one student (who was  selected by the original student) next to one another
+      public void personalPreference(String soughtID){ //Seats one student (who was  selected by the original student) next to one another
         String currFriendID = "";
         for (int row=0;row<desks.length;row++){
           for (int col=0;col<desks[0].length;col++){
-            if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
+            if (desks[row][col]!=null && desks[row][col].getStudent().getID().equals(soughtID) && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currFriendID = desks[row][col].getStudent().getFriendID();
             
               
