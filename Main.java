@@ -143,8 +143,8 @@ import javax.swing.JFrame;
       }
      }
     //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
-    ClassroomGUI gui = new ClassroomGUI(classroom);
-    gui.initializeStudentInformation(classroom.getDesks());
+    // ClassroomGUI gui = new ClassroomGUI(classroom);
+    // gui.initializeStudentInformation(classroom.getDesks());
  
   
   System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
@@ -154,9 +154,11 @@ import javax.swing.JFrame;
         classroom.gradePreference(classroom.singleRandom());
       }
      }
-     while (classroom.getStudentList().size()>0){
-      classroom.fullRandom();
-     }
+     // while (classroom.getStudentList().size()>0){
+     //  classroom.fullRandom();
+     // }
+     ClassroomGUI gui = new ClassroomGUI(classroom);
+     gui.initializeStudentInformation(classroom.getDesks());
     }
     //    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
     //    ClassroomGUI gui = new ClassroomGUI(classroom);
