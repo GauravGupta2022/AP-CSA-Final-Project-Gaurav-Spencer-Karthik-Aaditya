@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.lang.Math;
 
@@ -69,13 +70,8 @@ public class Classroom{
       this.deskCount = deskCount;
       this.studentCount = studentCount;
       this.desks = desks;
-      try {
-        numRows = desks.length;
-        numCols = desks[0].length;
-      } catch (Exception e) {
-        numRows = -1;
-        numCols = -1;
-      }
+      numRows = desks.length;
+      numCols = desks[0].length;
       this.roomNumber = roomNumber;
       this.periodNumber = periodNumber;
       this.studentList = students;
@@ -200,21 +196,23 @@ public class Classroom{
           }
         }
       }
-    public void singleRandom(){ //Assigns a random student to one desk
+    public String singleRandom(){ //Assigns a random student to one desk
         int rand = 0;
+        
         for (int r = 0; r < desks.length; r++){
             for (int c = 0; c < desks[0].length; c++){
                 if (desks[r][c]!=null){
                     if (studentList.size()>0){
                         rand = (int)Math.random()*studentList.size();
                         desks[r][c].seat(studentList.get(rand));
-                        studentList.remove(rand);
-                        break;
+                        return (studentList.remove(rand).getID());
+                        
                     }
                 }
             }
             break;
         }
+        return null;
       }
 
       public void medicalWithRandom(){
@@ -231,11 +229,11 @@ public class Classroom{
         }
         return null;
       }
-      public void gradePreference(){ //Seats one student with the same grade next to one another
+      public void gradePreference(String soughtID){ //Seats one student with the same grade next to one another
         double currGrade = 0;
         for (int row=0;row<desks.length;row++){
           for (int col=0;col<desks[0].length; col++){
-            if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
+            if (desks[row][col]!=null && desks[row][col].getStudent().getID().equals(soughtID) && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currGrade = desks[row][col].getStudent().getGrade();
               if(isGroup == true){
               if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
@@ -287,11 +285,11 @@ public class Classroom{
         }
       }
       }
-      public void personalPreference(){ //Seats one student (who was selected by the original student) next to one another
+      public void personalPreference(String soughtID){ //Seats one student (who was selected by the original student) next to one another
         String currFriendID = "";
         for (int row=0;row<desks.length;row++){
           for (int col=0;col<desks[0].length;col++){
-            if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
+            if (desks[row][col]!=null && desks[row][col].getStudent().getID().equals(soughtID) &&desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currFriendID = desks[row][col].getStudent().getFriendID();
             
               if (isNearbyDeskEmpty(row, col).equals("Right") && (col+2)<desks[0].length){
@@ -332,7 +330,9 @@ public class Classroom{
       }
       
 
-
+public void groupChoosing(){
+  System.out.println("e");
+}
 public String isNearbyDeskEmpty(int r, int c){
         String result = "";
         if(desks[r][c] != null){
