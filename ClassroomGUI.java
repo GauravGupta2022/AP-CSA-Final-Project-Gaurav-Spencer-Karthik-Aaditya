@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.*;
 
 public class ClassroomGUI {
@@ -8,10 +11,10 @@ public class ClassroomGUI {
     private boolean isGroupSeating;
     private Classroom classroom; // Assuming Classroom is defined elsewhere
 
-    public ClassroomGUI(Classroom classroom, boolean b) {
+    public ClassroomGUI(Classroom classroom) {
         this.classroom = classroom;
         desks = classroom.getDesks();
-        isGroupSeating = b; // Check seating type
+        isGroupSeating = checkGroupSeating(); // Check seating type
         JFrame frame = new JFrame("Classroom Layout");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -32,6 +35,16 @@ public class ClassroomGUI {
         frame.add(new ClassroomPanel(), BorderLayout.CENTER);
     }
 
+    private boolean checkGroupSeating() {
+        try (BufferedReader br = new BufferedReader(new FileReader("GridSeating.txt"))) {
+            String seatingType = br.readLine();
+            return "group".equalsIgnoreCase(seatingType);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private void invertDeskArray() {
         int numRows = desks.length;
         int numCols = desks[0].length;
@@ -50,8 +63,8 @@ public class ClassroomGUI {
             for (int row = 0; row < desks.length; row++) {
                 for (int col = 0; col < desks[row].length; col++) {
                     if (desks[row][col] != null) {
-                        System.out.println("Student: " + desks[row][col].getStudent().getName());
-                        System.out.println("ID: " + desks[row][col].getStudent().getID());
+                        // System.out.println("Student: " + desks[row][col].getStudent().getName());
+                        // System.out.println("ID: " + desks[row][col].getStudent().getID());
                     }
                 }
             }
