@@ -1,5 +1,4 @@
-
-class Desk {
+public class Desk {
     private boolean occupied;
     private Student student;
     private boolean isChecked = false;
