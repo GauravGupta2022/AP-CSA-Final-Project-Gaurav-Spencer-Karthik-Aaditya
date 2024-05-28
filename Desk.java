@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 class Desk {
     private boolean occupied;
     private Student student;
@@ -86,4 +86,3 @@ public class Desk {
       isChecked = b;
   }
 }
->>>>>>> 931fc12f4d1d3abf608730fb37fc73d285d7a5e0
