@@ -10,13 +10,6 @@ import javax.swing.JFrame;
  public class Main {
   public static void main(String[] args) {
     JFrame frame = new JFrame("Classroom Layout");
-    //List of available gridClassroom methods: fullRandom() [all students], eliteSeating() [GPA 1st choice], medicalFrontPreference()
-    //gridClassroom methods continued: medicalBackPreference(), singleRandom() [1 student], medicalWithRandom() [medical front/back, then fullRandom()]
-    //gridClassroom methods continued: gradePreference() [similar GPAs together], personalPreference() [sit with chosen friends] 
-    //List of available GroupClassrom methods (+ those in GridClassroom): groupChoosing()
- 
-   //  SwingUtilities.invokeLater(ClassroomGUI::new);
-   //  JFrame frame = new JFrame("Classroom Layout");
      
     boolean usingGridSeating = true; //false = group seating
     final String textFileName = "GroupSeating.txt";
@@ -41,15 +34,12 @@ import javax.swing.JFrame;
      System.out.println("Hello, would you like to get a completely randomized desk setup [1], let your students choose their own desks [2], or do you want to seat students by GPA [3]");
      String response = input.next();
      response = input.nextLine();
-     //NOTE: Must prompt teacher for int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students in order to fill the Classroom constructor...
+  
      if (response.contains("1")){//completely randomized
        classroom.medicalFrontPreference();
        classroom.medicalBackPreference();
        classroom.fullRandom();
      }
-       // if (response.contains("1")){
-       //   classroom.fullRandom();
-       // }
     else if (response.contains("2")){//students choose own desks
      classroom.medicalFrontPreference();
      classroom.medicalBackPreference();
@@ -59,7 +49,6 @@ import javax.swing.JFrame;
        }
       }
       else{
-       //code with group
        String groupResponse = input.next();
        System.out.println("Press [1] to allow students to choose only one friend, press [2] to allow students to choose all friends");;
        if (groupResponse.equals("1")){
@@ -81,16 +70,10 @@ import javax.swing.JFrame;
         classroom.gradePreference(holder);
       }
      }
-    //  while (classroom.getStudentList().size()>0){
-    //   classroom.fullRandom();
-    //  }
      System.out.println("indicator");
      ClassroomGUI gui = new ClassroomGUI(classroom, usingGridSeating);
      gui.initializeStudentInformation(classroom.getDesks());
      System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
-    //    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
-    //    ClassroomGUI gui = new ClassroomGUI(classroom);
-    //   gui.initializeStudentInformation(classroom.getDesks());
    
    System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
       if (response.contains("3")){//seat by similar GPA
@@ -98,9 +81,6 @@ import javax.swing.JFrame;
          classroom.gradePreference(classroom.singleRandom());
        }
       }
-      // while (classroom.getStudentList().size()>0){
-      //  classroom.fullRandom();
-      // }
       ClassroomGUI gui = new ClassroomGUI(classroom, usingGridSeating);
       gui.initializeStudentInformation(classroom.getDesks());
       else if (response.contains("3")){//seat by similar GPA
