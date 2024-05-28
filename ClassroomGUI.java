@@ -25,6 +25,7 @@ public class ClassroomGUI {
         toggleViewButton.addActionListener(e -> {
             isStudentView = !isStudentView;
             toggleViewButton.setText(isStudentView ? "Switch to Teacher View" : "Switch to Student View");
+            invertDeskArray();
             frame.repaint();
         });
 
@@ -35,13 +36,26 @@ public class ClassroomGUI {
     }
 
     private boolean checkGroupSeating() {
-        try (BufferedReader br = new BufferedReader(new FileReader("seating_type.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("GridSeating.txt"))) {
             String seatingType = br.readLine();
             return "group".equalsIgnoreCase(seatingType);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private void invertDeskArray() {
+        int numRows = desks.length;
+        int numCols = desks[0].length;
+        Desk[][] invertedDesks = new Desk[numRows][numCols];
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                invertedDesks[i][j] = desks[numRows - 1 - i][j];
+            }
+        }
+        desks = invertedDesks;
     }
 
     public void initializeStudentInformation(Desk[][] desks) {
@@ -51,7 +65,6 @@ public class ClassroomGUI {
                     if (desks[row][col] != null) {
                         System.out.println("Student: " + desks[row][col].getStudent().getName());
                         System.out.println("ID: " + desks[row][col].getStudent().getID());
-
                     }
                 }
             }
@@ -79,35 +92,35 @@ public class ClassroomGUI {
 
             // Draw the door
             g.setColor(Color.RED);
-            g.fillRect(700, 230, 30, 60);
+            g.fillRect(830, 230, 30, 60);
             g.setColor(Color.WHITE);
-            g.drawString("Door", 705, 260);
+            g.drawString("Door", 830, 260);
         }
 
         private void drawTeacherView(Graphics g) {
             // Draw the front of the classroom
-            g.setColor(Color.BLUE);
-            g.fillRect(50, 10, 700, 30);
+            g.setColor(Color.RED);
+            g.fillRect(50, 10, 800, 30);
             g.setColor(Color.WHITE);
             g.drawString("Front of the Classroom", 350, 30);
 
             // Draw the back of the classroom
-            g.setColor(Color.BLUE);
-            g.fillRect(50, 520, 700, 30);
+            g.setColor(Color.RED);
+            g.fillRect(50, 520, 800, 30);
             g.setColor(Color.WHITE);
             g.drawString("Back of the Classroom", 350, 540);
         }
 
         private void drawStudentView(Graphics g) {
             // Draw the front of the classroom at the bottom
-            g.setColor(Color.BLUE);
-            g.fillRect(50, 520, 700, 30);
+            g.setColor(Color.RED);
+            g.fillRect(50, 520, 800, 30);
             g.setColor(Color.WHITE);
             g.drawString("Front of the Classroom", 350, 540);
 
             // Draw the back of the classroom at the top
-            g.setColor(Color.BLUE);
-            g.fillRect(50, 10, 700, 30);
+            g.setColor(Color.RED);
+            g.fillRect(50, 10, 800, 30);
             g.setColor(Color.WHITE);
             g.drawString("Back of the Classroom", 350, 30);
         }
@@ -126,24 +139,18 @@ public class ClassroomGUI {
             int rows = desks.length;
             int cols = desks[0].length;
 
-            int deskIndex = 0;
-
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < cols; col++) {
-                    if (deskIndex >= totalDesks) break;
-
                     int x = startX + col * (tableWidth + tableGap);
                     int y = startY + row * (tableHeight + tableGap);
 
                     g.fillRect(x, y, tableWidth, tableHeight);
 
                     // Draw the four panels inside each table
-                    g.setColor(new Color(0, 0, 0, 255));
                     g.fillRect(x, y, panelWidth, panelHeight);
                     g.fillRect(x + panelWidth, y, panelWidth, panelHeight);
                     g.fillRect(x, y + panelHeight, panelWidth, panelHeight);
                     g.fillRect(x + panelWidth, y + panelHeight, panelWidth, panelHeight);
-
                     g.drawRect(x, y, panelWidth, panelHeight);
                     g.drawRect(x + panelWidth, y, panelWidth, panelHeight);
                     g.drawRect(x, y + panelHeight, panelWidth, panelHeight);
@@ -155,27 +162,15 @@ public class ClassroomGUI {
                         g.drawString(studentName, x + 5, y + 20);
                         String studentId = desks[row][col].getStudent().getID();
                         g.drawString(String.valueOf(studentId), x + 5, y + 40);
-                        JLabel studentLabel = new JLabel(studentName + ", " + studentId, JLabel.CENTER);
-                        studentLabel.setFont(new Font("Arial", Font.PLAIN, 12)); // Optional: Set font
-                        studentLabel.setVisible(true);
                     }
-
-                
-
-                    deskIndex++;
                 }
             }
         }
 
         private void drawGridSeating(Graphics g) {
             // Implement the grid seating layout
-<<<<<<< HEAD
-            g.setColor(new Color(0, 0, 0, 255));
-=======
-            g.setColor(Color);
->>>>>>> bf6d5b915edcb6ccd7fe3ccd799ee32654bb8a44
-            int deskWidth = 60;
-            int deskHeight = 40;
+            int deskWidth = 120;
+            int deskHeight = 50;
             int deskGap = 10;
 
             int startX = 50;
@@ -187,8 +182,9 @@ public class ClassroomGUI {
                 for (int col = 0; col < cols; col++) {
                     int x = startX + col * (deskWidth + deskGap);
                     int y = startY + row * (deskHeight + deskGap);
-
+                    g.setColor(Color.BLUE);
                     g.fillRect(x, y, deskWidth, deskHeight);
+                    g.setColor(Color.WHITE);
 
                     if (desks[row][col] != null) {
                         // Display the student info in each desk
@@ -196,10 +192,6 @@ public class ClassroomGUI {
                         g.drawString(studentName, x + 5, y + 20);
                         String studentId = desks[row][col].getStudent().getID();
                         g.drawString(String.valueOf(studentId), x + 5, y + 30);
-                        // Define transparency level for the rectangle (optional)
-                        JLabel studentLabel = new JLabel(studentName + ", " + studentId, JLabel.CENTER);
-                        studentLabel.setFont(new Font("Arial", Font.PLAIN, 12)); // Optional: Set font
-                        studentLabel.setVisible(true);
                     }
                 }
             }

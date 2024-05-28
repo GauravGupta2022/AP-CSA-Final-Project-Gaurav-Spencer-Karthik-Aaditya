@@ -32,10 +32,6 @@ import javax.swing.JFrame;
     Desk[][] desks = null;
     ArrayList<Student> students = new ArrayList<Student>();
     int numInGroup = -1; //group seating
-<<<<<<< HEAD
-
-=======
->>>>>>> bf6d5b915edcb6ccd7fe3ccd799ee32654bb8a44
 
     System.out.println("Start of textfile reading");
     try {
@@ -129,7 +125,7 @@ import javax.swing.JFrame;
     }
        //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
        ClassroomGUI gui = new ClassroomGUI(classroom);
-       gui.initializeStudentInformation(classroom.getDesks());
+      gui.initializeStudentInformation(classroom.getDesks());
    
     
     System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
