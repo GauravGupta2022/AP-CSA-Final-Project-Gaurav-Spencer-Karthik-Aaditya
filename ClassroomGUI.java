@@ -50,8 +50,8 @@ public class ClassroomGUI {
             for (int row = 0; row < desks.length; row++) {
                 for (int col = 0; col < desks[row].length; col++) {
                     if (desks[row][col] != null) {
-                        System.out.println("Student: " + desks[row][col].getStudent().getName());
-                        System.out.println("ID: " + desks[row][col].getStudent().getID());
+                        // System.out.println("Student: " + desks[row][col].getStudent().getName());
+                        // System.out.println("ID: " + desks[row][col].getStudent().getID());
                     }
                 }
             }
