@@ -136,7 +136,7 @@ public class Classroom{
           }
           else if(dir.equals("Up")){
             desks[row-1][col].seat(findStudent(newList.get(count).getFriendID()));
-;
+
           }
           else if (dir.equals("Down")){
             desks[row+11][col].seat(findStudent(newList.get(count).getFriendID()));
@@ -235,6 +235,7 @@ public class Classroom{
           for (int col=0;col<desks[0].length; col++){
             if (desks[row][col]!=null && desks[row][col].getStudent().getID().equals(soughtID) && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currGrade = desks[row][col].getStudent().getGrade();
+              System.out.println("e");
               if(isGroup == true){
               if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
                 desks[row][col+1].seat(findStudentWithGrade(currGrade));
@@ -333,48 +334,37 @@ public class Classroom{
 public void groupChoosing(){
   System.out.println("e");
 }
-public String isNearbyDeskEmpty(int r, int c){
-        String result = "";
-        if(desks[r][c] != null){
-          if(r > 0 && r != desks.length-2 && c > 0 && c != desks[0].length -2){
-            if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null)){
-              result = "Right";
+public String isNearbyDeskEmpty(int r, int c) {
+  if (desks[r][c] == null) {
+      return "";
+  }
 
-            }
-            else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null)){
-              result = "Left";
-            }
-            else if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null)){
-              result = "Up";
-            }
-            else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null)){
-              result = "Down";
-            }
-          }
-          else if(( r == 0) || (r== desks.length - 1 )){
-            if((desks[r][c+2].getOccupied() == false && desks[r][c+1] == null)){
-              result = "Right";
+  
+  boolean canCheckRight = c + 2 < desks[0].length;
+  boolean canCheckLeft = c - 2 >= 0;
+  boolean canCheckUp = r - 2 >= 0;
+  boolean canCheckDown = r + 2 < desks.length;
 
-            }
-            else if((desks[r][c-2].getOccupied() == false && desks[r][c-1] == null)){
-              result = "Left";
-            }
+  if (canCheckRight && desks[r][c+2] != null && !desks[r][c+2].getOccupied() && desks[r][c+1] == null) {
+      return "Right";
+  }
+  if (canCheckLeft && desks[r][c-2] != null && !desks[r][c-2].getOccupied() && desks[r][c-1] == null) {
+      return "Left";
+  }
+  if (canCheckUp && desks[r-2][c] != null && !desks[r-2][c].getOccupied() && desks[r-1][c] == null) {
+      return "Up";
+  }
+  if (canCheckDown && desks[r+2][c] != null && !desks[r+2][c].getOccupied() && desks[r+1][c] == null) {
+      return "Down";
+  }
 
-          }
-          else if((c == 0) || (c == desks[0].length - 1)){
-             if((desks[r-2][c].getOccupied() == false && desks[r-1][c] == null)){
-              result = "Up";
-            }
-            else if((desks[r+2][c].getOccupied() == false && desks[r+1][c] == null)){
-              result = "Down";
-            }
-        }
-        
-       
-      }
-          return result;
-} 
+  return "";
+}
 
   
 
 }
+
+  
+
+
