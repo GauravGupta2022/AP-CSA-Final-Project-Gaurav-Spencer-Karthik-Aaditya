@@ -19,8 +19,8 @@ import javax.swing.JFrame;
   //  JFrame frame = new JFrame("Classroom Layout");
    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     
-  boolean usingGridSeating = true; //false = group seating
-   final String textFileName = "GroupSeating.txt";
+   boolean usingGridSeating = true; //false = group seating
+   final String textFileName = "GridSeating.txt";
 
    //variables to be filled in from Classroom
     String roomNumber = null;
@@ -112,11 +112,7 @@ import javax.swing.JFrame;
     Student myStudent = new Student();
     System.out.println(myStudent);
     System.out.println("Hello, would you like to get a completely randomized desk setup [1], let your students choose their own desks [2], or do you want to seat students by GPA [3]");
-<<<<<<< HEAD
-    String response = input.next();
-=======
     String response = input.nextLine();
->>>>>>> 931fc12f4d1d3abf608730fb37fc73d285d7a5e0
     //NOTE: Must prompt teacher for int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students in order to fill the Classroom constructor...
     if (response.contains("1")){//completely randomized
       classroom.medicalFrontPreference();
@@ -149,25 +145,6 @@ import javax.swing.JFrame;
       classroom.groupChoosing();
       }
      }
-<<<<<<< HEAD
-    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
-    // ClassroomGUI gui = new ClassroomGUI(classroom);
-    // gui.initializeStudentInformation(classroom.getDesks());
- 
-  
-  System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
-     }
-     else if (response.contains("3")){//seat by similar GPA
-      while (classroom.getStudentList().size()>0){
-        classroom.gradePreference(classroom.singleRandom());
-      }
-     }
-     // while (classroom.getStudentList().size()>0){
-     //  classroom.fullRandom();
-     // }
-     ClassroomGUI gui = new ClassroomGUI(classroom, usingGridSeating);
-     gui.initializeStudentInformation(classroom.getDesks());
-=======
      }
      else if (response.contains("3")){//seat by similar GPA
       while (classroom.getStudentList().size()>0){
@@ -182,7 +159,6 @@ import javax.swing.JFrame;
      ClassroomGUI gui = new ClassroomGUI(classroom);
      gui.initializeStudentInformation(classroom.getDesks());
      System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
->>>>>>> 931fc12f4d1d3abf608730fb37fc73d285d7a5e0
     }
     //    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
     //    ClassroomGUI gui = new ClassroomGUI(classroom);
@@ -410,8 +386,4 @@ import javax.swing.JFrame;
   }
 
 }
-<<<<<<< HEAD
  
-=======
- 
->>>>>>> 931fc12f4d1d3abf608730fb37fc73d285d7a5e0
