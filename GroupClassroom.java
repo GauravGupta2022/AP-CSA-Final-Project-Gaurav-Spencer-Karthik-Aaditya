@@ -38,8 +38,12 @@ public class GroupClassroom extends Classroom{
                 boolean flag = true;
                 int count = 0;
                   while(true){
-                    if (x < 0 || x >= desks.length || y < 0 || y >= desks[0].length) {
+                    if (x < r || x >= desks.length || y < c || y >= desks[0].length) {
                       break;
+
+                  }
+                  if(desks[x+1][y]==null){
+                    break;
                   }
                     if(desks[x][y] != null && s.getGroupMembers().size() > 0 && desks[x][y].getOccupied() == false ){
                       desks[x][y].seat(findStudent(s.getGroupMembers().remove(0)));
@@ -54,8 +58,8 @@ public class GroupClassroom extends Classroom{
                       }
                       
                     }
-                    else if(desks[x][y] == null && flag == false){
-                      if(count > numInGroup){
+                    else if(desks[x][y] == null && flag == true){
+                      if(count >= numInGroup){
                         break;
                       }
                       x++;
@@ -66,8 +70,8 @@ public class GroupClassroom extends Classroom{
                     
 
                     }
-                    else if(desks[x][y] == null && flag == true){
-                      if(count > numInGroup){
+                    else if(desks[x][y] == null && flag == false){
+                      if(count >= numInGroup){
                         break;
                       }
                       x++;
@@ -92,52 +96,46 @@ public class GroupClassroom extends Classroom{
         //code to randomize remaining seats
         fullRandom();
       }
-      public String isNearbyDeskEmpty(int r, int c){
+      public String isNearbyDeskEmpty(int r, int c) {
         String result = "";
-        if(desks[r][c] != null){
-          if(r > 0 && r != desks.length-2 && c > 0 && c != desks[0].length -2){
-            if((desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
-              result = "Right";
-
-            }
-            else if((desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
-              result = "Left";
-            }
-            else if((desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
-              result = "Up";
-            }
-            else if((desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
-              result = "Down";
-            }
-          }
-          else if((r == 0) || (r== desks.length - 1)){
-            if((desks[r][c+1] != null && desks[r][c+1].getOccupied() == false )){
-              result = "Right";
-
-            }
-            else if((desks[r][c-1] != null && desks[r][c-1].getOccupied() == false )){
-              result = "Left";
-            }
-
-          }
-          else if((c == 0 ) || (c == desks[0].length - 1)){
-             if((desks[r-1][c] != null && desks[r-1][c].getOccupied() == false )){
-              result = "Up";
-            }
-            else if((desks[r+1][c] != null && desks[r+1][c].getOccupied() == false )){
-              result = "Down";
+        if (desks[r][c] != null) {
+            
+            if (r > 0 && r < desks.length - 1 && c > 0 && c < desks[0].length - 1) {
+                if (desks[r][c + 1] != null && !desks[r][c + 1].getOccupied()) {
+                    result = "Right";
+                } else if (desks[r][c - 1] != null && !desks[r][c - 1].getOccupied()) {
+                    result = "Left";
+                } else if (desks[r - 1][c] != null && !desks[r - 1][c].getOccupied()) {
+                    result = "Up";
+                } else if (desks[r + 1][c] != null && !desks[r + 1][c].getOccupied()) {
+                    result = "Down";
+                }
+            } else {
+                
+                if (r == 0 || r == desks.length - 1) {
+                    if (c < desks[0].length - 1 && desks[r][c + 1] != null && !desks[r][c + 1].getOccupied()) {
+                        result = "Right";
+                    } else if (c > 0 && desks[r][c - 1] != null && !desks[r][c - 1].getOccupied()) {
+                        result = "Left";
+                    }
+                }
+                if (c == 0 || c == desks[0].length - 1) {
+                    if (r < desks.length - 1 && desks[r + 1][c] != null && !desks[r + 1][c].getOccupied()) {
+                        result = "Down";
+                    } else if (r > 0 && desks[r - 1][c] != null && !desks[r - 1][c].getOccupied()) {
+                        result = "Up";
+                    }
+                }
             }
         }
-        
-       
-      }
-          return result;
-      }
-      public void personalPreference(){ //Seats one student (who was  selected by the original student) next to one another
+        return result;
+    }
+      
+      public void personalPreference(String soughtID){ //Seats one student (who was  selected by the original student) next to one another
         String currFriendID = "";
         for (int row=0;row<desks.length;row++){
           for (int col=0;col<desks[0].length;col++){
-            if (desks[row][col]!=null && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
+            if (desks[row][col]!=null && desks[row][col].getStudent().getID().equals(soughtID) && desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currFriendID = desks[row][col].getStudent().getFriendID();
             
               

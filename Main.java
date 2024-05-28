@@ -19,8 +19,8 @@ import javax.swing.JFrame;
   //  JFrame frame = new JFrame("Classroom Layout");
    //List of available Classroom methods: fullRandom(), medicalFrontPreference(), medicalBackPreference(), gradePreference(), singleRandom(), personalPreference()
     
-   boolean usingGridSeating = true; //false = group seating
-   final String textFileName = "GridSeating.txt";
+  boolean usingGridSeating = true; //false = group seating
+   final String textFileName = "GroupSeating.txt";
 
    //variables to be filled in from Classroom
     String roomNumber = null;
@@ -111,27 +111,64 @@ import javax.swing.JFrame;
     Scanner input = new Scanner(System.in);
     Student myStudent = new Student();
     System.out.println(myStudent);
-    System.out.println("Hello, would you like to get a completely randomized desk setup [1], to let your students choose their own desks [2], or to choose the desk arrangement yourself [3]");
+    System.out.println("Hello, would you like to get a completely randomized desk setup [1], let your students choose their own desks [2], or do you want to seat students by GPA [3]");
     String response = input.next();
     //NOTE: Must prompt teacher for int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students in order to fill the Classroom constructor...
     if (response.contains("1")){//completely randomized
+      classroom.medicalFrontPreference();
+      classroom.medicalBackPreference();
       classroom.fullRandom();
     }
    else if (response.contains("2")){//students choose own desks
-     //code
+    classroom.medicalFrontPreference();
+    classroom.medicalBackPreference();
+    if (usingGridSeating){
+      while (classroom.getStudentList().size()>0){
+        classroom.personalPreference(classroom.singleRandom());
+      }
      }
-    else{//teacher chooses desk arrangement
-       //code
+     else{
+      //code with group
+      String groupResponse = input.next();
+      System.out.println("Press [1] to allow students to choose only one friend, press [2] to allow students to choose all friends");;
+      if (groupResponse.equals("1")){
+        while (classroom.getStudentList().size()>0){
+          
+          classroom.personalPreference(classroom.singleRandom());
+        }
+      }
+      else{
+      //code with CHOOSE ALL group  
+      classroom.groupChoosing();
+      }
+     }
+    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
+    // ClassroomGUI gui = new ClassroomGUI(classroom);
+    // gui.initializeStudentInformation(classroom.getDesks());
+ 
+  
+  System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
+     }
+     else if (response.contains("3")){//seat by similar GPA
+      while (classroom.getStudentList().size()>0){
+        classroom.gradePreference(classroom.singleRandom());
+      }
+     }
+     // while (classroom.getStudentList().size()>0){
+     //  classroom.fullRandom();
+     // }
+     ClassroomGUI gui = new ClassroomGUI(classroom, usingGridSeating);
+     gui.initializeStudentInformation(classroom.getDesks());
     }
-       //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
-       ClassroomGUI gui = new ClassroomGUI(classroom);
-      gui.initializeStudentInformation(classroom.getDesks());
+    //    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
+    //    ClassroomGUI gui = new ClassroomGUI(classroom);
+    //   gui.initializeStudentInformation(classroom.getDesks());
    
     
-    System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
+    // System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
 
     //panel.initialize(classroom.getNumRows(), classroom.getNumCols(), classroom.getID(), classroom.getName());
-  }
+  
 
   private static void setStudentNames(BufferedReader reader, ArrayList<Student> students, int studentCount) throws Exception{
     try {
@@ -349,3 +386,4 @@ import javax.swing.JFrame;
   }
 
 }
+ 

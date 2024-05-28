@@ -5,7 +5,7 @@ class Desk {
   
     public Desk() {
         occupied = false;
-        this.student = null;
+        this.student = new Student();
     }
   
     public boolean getOccupied() {
