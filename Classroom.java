@@ -104,7 +104,7 @@ public class Classroom{
           //code to install student
           if(desks[r][c]!= null && desks[r][c].getOccupied() == false){
             if(studentList.size()>0){
-            rand = (int)Math.random()*studentList.size();
+            rand = (int)(Math.random()*studentList.size());
             desks[r][c].seat(studentList.get(rand));
             studentList.remove(rand);
             }
