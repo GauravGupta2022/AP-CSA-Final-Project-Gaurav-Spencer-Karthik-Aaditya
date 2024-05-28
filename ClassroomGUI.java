@@ -1,20 +1,17 @@
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import javax.swing.*;
 
 public class ClassroomGUI {
     private int totalDesks;
     private boolean isStudentView = false;
     private Desk[][] desks;
-    private boolean isGroupSeating;
+    private boolean usingGridSeating;
     private Classroom classroom; // Assuming Classroom is defined elsewhere
 
-    public ClassroomGUI(Classroom classroom) {
+    public ClassroomGUI(Classroom classroom, boolean b) {
         this.classroom = classroom;
         desks = classroom.getDesks();
-        isGroupSeating = checkGroupSeating(); // Check seating type
+        usingGridSeating = b; // Check seating type
         JFrame frame = new JFrame("Classroom Layout");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -33,16 +30,6 @@ public class ClassroomGUI {
         frame.setVisible(true);
         frame.add(controlPanel, BorderLayout.NORTH);
         frame.add(new ClassroomPanel(), BorderLayout.CENTER);
-    }
-
-    private boolean checkGroupSeating() {
-        try (BufferedReader br = new BufferedReader(new FileReader("GridSeating.txt"))) {
-            String seatingType = br.readLine();
-            return "group".equalsIgnoreCase(seatingType);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     private void invertDeskArray() {
@@ -83,7 +70,7 @@ public class ClassroomGUI {
             }
 
             if (desks != null) {
-                if (isGroupSeating) {
+                if (!usingGridSeating) {
                     drawGroupSeating(g);
                 } else {
                     drawGridSeating(g);
@@ -144,9 +131,12 @@ public class ClassroomGUI {
                     int x = startX + col * (tableWidth + tableGap);
                     int y = startY + row * (tableHeight + tableGap);
 
+                    
                     g.fillRect(x, y, tableWidth, tableHeight);
+                
 
                     // Draw the four panels inside each table
+                    
                     g.fillRect(x, y, panelWidth, panelHeight);
                     g.fillRect(x + panelWidth, y, panelWidth, panelHeight);
                     g.fillRect(x, y + panelHeight, panelWidth, panelHeight);
