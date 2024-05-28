@@ -111,18 +111,15 @@ import javax.swing.JFrame;
     Scanner input = new Scanner(System.in);
     Student myStudent = new Student();
     System.out.println(myStudent);
-    System.out.println("Hello, would you like to get a completely randomized desk setup [1], to let your students choose their own desks [2], or to choose the desk arrangement yourself [3]");
+    System.out.println("Hello, would you like to get a completely randomized desk setup [1] or to let your students choose their own desks [2]");
     String response = input.next();
     //NOTE: Must prompt teacher for int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students in order to fill the Classroom constructor...
     if (response.contains("1")){//completely randomized
       classroom.fullRandom();
     }
    else if (response.contains("2")){//students choose own desks
-     //code
+     classroom.personalPreference();
      }
-    else{//teacher chooses desk arrangement
-       //code
-    }
        //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
        ClassroomGUI gui = new ClassroomGUI(classroom);
       gui.initializeStudentInformation(classroom.getDesks());
