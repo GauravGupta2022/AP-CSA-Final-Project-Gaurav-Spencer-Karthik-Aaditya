@@ -157,7 +157,7 @@ import javax.swing.JFrame;
      // while (classroom.getStudentList().size()>0){
      //  classroom.fullRandom();
      // }
-     ClassroomGUI gui = new ClassroomGUI(classroom);
+     ClassroomGUI gui = new ClassroomGUI(classroom, usingGridSeating);
      gui.initializeStudentInformation(classroom.getDesks());
     }
     //    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 

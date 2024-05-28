@@ -1,7 +1,4 @@
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import javax.swing.*;
 
 public class ClassroomGUI {
@@ -11,10 +8,10 @@ public class ClassroomGUI {
     private boolean isGroupSeating;
     private Classroom classroom; // Assuming Classroom is defined elsewhere
 
-    public ClassroomGUI(Classroom classroom) {
+    public ClassroomGUI(Classroom classroom, boolean b) {
         this.classroom = classroom;
         desks = classroom.getDesks();
-        isGroupSeating = checkGroupSeating(); // Check seating type
+        isGroupSeating = b; // Check seating type
         JFrame frame = new JFrame("Classroom Layout");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -33,16 +30,6 @@ public class ClassroomGUI {
         frame.setVisible(true);
         frame.add(controlPanel, BorderLayout.NORTH);
         frame.add(new ClassroomPanel(), BorderLayout.CENTER);
-    }
-
-    private boolean checkGroupSeating() {
-        try (BufferedReader br = new BufferedReader(new FileReader("GridSeating.txt"))) {
-            String seatingType = br.readLine();
-            return "group".equalsIgnoreCase(seatingType);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     private void invertDeskArray() {
