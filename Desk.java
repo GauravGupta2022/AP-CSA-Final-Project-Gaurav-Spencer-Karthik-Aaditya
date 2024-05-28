@@ -28,7 +28,7 @@ class Desk {
   
     public Student unseat() {
         Student result = student;
-        this.student = null;
+        this.student = new Student();
         this.occupied = false;
         return result;
     }
