@@ -167,6 +167,7 @@ public class Classroom{
       for (int i=0; i<studentList.size();i++){
         if (studentList.get(i).getMedicalFrontPreference()==true){//change var name
           newList.add(studentList.get(i));
+          studentList.remove(i);
         }
       }
       int count = 0;
@@ -184,6 +185,7 @@ public class Classroom{
         for (int i=0;i<studentList.size();i++){
           if (studentList.get(i).getMedicalBackPreference()==true){//change var name
             newList.add(studentList.get(i));
+            studentList.remove(i);
           }
           int count = 0;
           for (int p=0;p<desks.length;p++){
@@ -205,7 +207,8 @@ public class Classroom{
                     if (studentList.size()>0){
                         rand = (int)Math.random()*studentList.size();
                         desks[r][c].seat(studentList.get(rand));
-                        return (studentList.remove(rand).getID());
+                        Student holder = studentList.remove(rand);
+                        return holder.getID();
                         
                     }
                 }
@@ -366,5 +369,4 @@ public String isNearbyDeskEmpty(int r, int c) {
 }
 
   
-
 
