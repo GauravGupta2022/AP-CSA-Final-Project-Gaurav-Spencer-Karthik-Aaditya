@@ -112,13 +112,16 @@ import javax.swing.JFrame;
     Student myStudent = new Student();
     System.out.println(myStudent);
     System.out.println("Hello, would you like to get a completely randomized desk setup [1], let your students choose their own desks [2], or do you want to seat students by GPA [3]");
-    String response = input.next();
+    String response = input.nextLine();
     //NOTE: Must prompt teacher for int deskCount, int studentCount, Desk[][] desks, int classNumber, int periodNumber, ArrayList<Student> students in order to fill the Classroom constructor...
     if (response.contains("1")){//completely randomized
       classroom.medicalFrontPreference();
       classroom.medicalBackPreference();
       classroom.fullRandom();
     }
+      // if (response.contains("1")){
+      //   classroom.fullRandom();
+      // }
    else if (response.contains("2")){//students choose own desks
     classroom.medicalFrontPreference();
     classroom.medicalBackPreference();
@@ -142,23 +145,20 @@ import javax.swing.JFrame;
       classroom.groupChoosing();
       }
      }
-    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
-    // ClassroomGUI gui = new ClassroomGUI(classroom);
-    // gui.initializeStudentInformation(classroom.getDesks());
- 
-  
-  System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
      }
      else if (response.contains("3")){//seat by similar GPA
       while (classroom.getStudentList().size()>0){
-        classroom.gradePreference(classroom.singleRandom());
+        String holder = classroom.singleRandom();
+        classroom.gradePreference(holder);
       }
      }
-     // while (classroom.getStudentList().size()>0){
-     //  classroom.fullRandom();
-     // }
-     ClassroomGUI gui = new ClassroomGUI(classroom, usingGridSeating);
+    //  while (classroom.getStudentList().size()>0){
+    //   classroom.fullRandom();
+    //  }
+     System.out.println("indicator");
+     ClassroomGUI gui = new ClassroomGUI(classroom);
      gui.initializeStudentInformation(classroom.getDesks());
+     System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
     }
     //    //***CREATE GUI OBJECT HERE that takes in appropriate parameters from the classroom 
     //    ClassroomGUI gui = new ClassroomGUI(classroom);
