@@ -147,8 +147,9 @@ import javax.swing.JFrame;
      }
      }
      else if (response.contains("3")){//seat by similar GPA
+      String holder;
       while (classroom.getStudentList().size()>0){
-        String holder = classroom.singleRandom();
+        holder = classroom.singleRandom();
         classroom.gradePreference(holder);
       }
      }
@@ -156,7 +157,7 @@ import javax.swing.JFrame;
     //   classroom.fullRandom();
     //  }
      System.out.println("indicator");
-     ClassroomGUI gui = new ClassroomGUI(classroom);
+     ClassroomGUI gui = new ClassroomGUI(classroom, usingGridSeating);
      gui.initializeStudentInformation(classroom.getDesks());
      System.out.println("Thank you for using Seating Plus! We hope you enjoyed your experience!");
     }
