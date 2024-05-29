@@ -291,8 +291,8 @@ public class Classroom{
 //     }
 //     System.out.println("finished");
 
-        public void eliteSeating(double min) {
-    ArrayList<Student> newList = new ArrayList<>();
+       /* public void eliteSeating(double min) {
+    ArrayList<Student> newList = new ArrayList<Student>();
 
     // Collect students with GPA above the minimum
     for (int i = 0; i < studentList.size(); i++) {
@@ -322,6 +322,50 @@ public class Classroom{
                 row = (int) (Math.random() * desks.length);
                 col = (int) (Math.random() * desks[0].length);
                 if (isValidSeat(row, col) && desks[row][col].getOccupied() == false && !isNearbyDeskEmpty(row, col).equals("")) {
+                    desks[row][col].seat(student);
+                    seatFriend(row, col, student.getFriendID());
+                    seated = true;
+                    System.out.println("seated in new pos");
+                }
+            }
+        }
+    }
+
+    System.out.println("finished");
+}
+*/
+
+public void eliteSeating(double min) {
+    ArrayList<Student> newList = new ArrayList<>();
+
+    // Collect students with GPA above the minimum
+    for (int i = 0; i < studentList.size(); i++) {
+        if (studentList.get(i).getGrade() >= min) {
+            newList.add(studentList.get(i));
+        }
+    }
+    System.out.println("elite students found");
+
+    // Remove collected students from the original list
+    studentList.removeAll(newList);
+
+    // Iterate through the list of elite students
+    for (Student student : newList) {
+        boolean seated = false;
+        int row = student.getWantedRow() - 1;
+        int col = student.getWantedCol() - 1;
+
+        if (isValidSeat(row, col) && !desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).isEmpty()) {
+            desks[row][col].seat(student);
+            seatFriend(row, col, student.getFriendID());
+            seated = true;
+            System.out.println("seated");
+        } else {
+            // Try to find a random seat
+            while (!seated) {
+                row = (int) (Math.random() * desks.length);
+                col = (int) (Math.random() * desks[0].length);
+                if (isValidSeat(row, col) && !desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).isEmpty()) {
                     desks[row][col].seat(student);
                     seatFriend(row, col, student.getFriendID());
                     seated = true;
@@ -409,8 +453,8 @@ private void seatFriend(int row, int col, String friendID) {
                         Student holder = studentList.get(rand);
                         desks[r][c].seat(studentList.get(rand));
                         studentList.remove(rand);
-                        System.out.println(studentList.size());
-                        System.out.println("f");
+                        //System.out.println(studentList.size());
+                        //System.out.println("f");
                         return holder.getID();
                     }
                 }
