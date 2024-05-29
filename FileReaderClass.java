@@ -7,9 +7,8 @@ public class FileReaderClass {
 	private String textFileName;
 	private boolean usingGridSeating;
 
-	public FileReaderClass(String txt, boolean usingGridSeating){
+	public FileReaderClass(String txt){
 		textFileName = txt;
-		this.usingGridSeating = usingGridSeating;
 	}
 	
 	public Classroom parse() {
@@ -84,6 +83,7 @@ public class FileReaderClass {
      else {
        classroom = new GroupClassroom(deskCount, studentCount, desks, roomNumber, periodNumber, students, numInGroup);
      }
+	 classroom.setUsingGridSeating(this.usingGridSeating);
 	 
 	 return classroom;
 
