@@ -121,261 +121,66 @@ public class Classroom{
       }
 
     }
-   /* public void eliteSeating(double min){
-      
-      ArrayList<Student> newList = new ArrayList<Student>();
-      for (int i=0;i<studentList.size();i++){
-        if (studentList.get(i).getGrade()>=min){
+   public void eliteSeating(double min) {
+  ArrayList<Student> newList = new ArrayList<>();
+
+  // Collect students with GPA above the minimum
+  for (int i = 0; i < studentList.size(); i++) {
+      if (studentList.get(i).getGrade() >= min) {
           newList.add(studentList.get(i));
-          studentList.remove(i);
-        }
+          System.out.println("Collected student: " + studentList.get(i).getName());
       }
-      int count = 0;
-      while (count<newList.size()){
-        System.out.println("loop has been ran");
-        int row = newList.get(count).getWantedRow()-1;
-        int col = newList.get(count).getWantedCol()-1;
-        if(desks[row][col]!=null && desks[row][col].getOccupied() == false && !isNearbyDeskEmpty(row,col).equals("")){
-          desks[row][col].seat(newList.get(count));
-          System.out.println("seated");
+  }
+  System.out.println("elite students found");
 
-          String dir = isNearbyDeskEmpty(row, col);
-          if(dir.equals("Right") && desks[row][col+1]!=null){
-            desks[row][col+1].seat(findStudent(newList.get(count).getFriendID()));
-            System.out.println("r"); 
-          }
-          else if(dir.equals("Left") && desks[row][col-1]!=null){
-            desks[row][col-1].seat(findStudent(newList.get(count).getFriendID()));
+  // Remove collected students from the original list
+  studentList.removeAll(newList);
+  System.out.println("Number of elite students: " + newList.size());
 
-            System.out.println("l");
-          }
-          else if(dir.equals("Up") && desks[row-1][col]!=null){
-            desks[row-1][col].seat(findStudent(newList.get(count).getFriendID()));
+  // Iterate through the list of elite students
+  for (Student student : newList) {
+      System.out.println("Attempting to seat student: " + student.getName());
+      boolean seated = false;
+      int row = student.getWantedRow() - 1;
+      int col = student.getWantedCol() - 1;
 
-            System.out.println("u");
+      if (isValidSeat(row, col) && !desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).isEmpty()) {
+          desks[row][col].seat(student);
+          seatFriend(row, col, student.getFriendID());
+          seated = true;
+          System.out.println("Seated in preferred position: " + row + ", " + col);
+      } else {
+          // Try to find a random seat
+          int maxAttempts = 100;
+          int attempts = 0;
+          while (!seated && attempts < maxAttempts) {
+              row = (int) (Math.random() * desks.length);
+              col = (int) (Math.random() * desks[0].length);
+              System.out.println("Trying random seat: " + row + ", " + col + " (Attempt: " + (attempts + 1) + ")");
+              if (desks[row][col] !=null) {
+                System.out.println("a");
+                if(!desks[row][col].getOccupied()){
+                  System.out.println("b");
+                  if(!isNearbyDeskEmpty(row, col).isEmpty()){
+                    System.out.println("c");
+                  System.out.println("Valid random seat found: " + row + ", " + col);
+                  desks[row][col].seat(student);
+                  seatFriend(row, col, student.getFriendID());
+                  seated = true;
+                  System.out.println("Seated in new position: " + row + ", " + col);
+                  break;
+                  }
+                }
+              }
+              attempts++;
           }
-          else if (dir.equals("Down") && desks[row+1][col]!=null){
-            desks[row+1][col].seat(findStudent(newList.get(count).getFriendID()));
-
-            System.out.println("d");
+          if (!seated) {
+              System.out.println("Unable to find a valid seat for " + student.getName() + " after " + attempts + " attempts");
           }
-          count++;
-          //S Cleanup [possible print statement?]
-          }
-          else{
-            System.out.println("spot taken!");
-            boolean flag = true;
-
-            int x = 0;
-            int y = 0;
-            String dir = "";
-            while(flag){
-              row = (int)(Math.random()*desks.length-1)+1;
-              col = (int)(Math.random()*desks[0].length-1)+1;
-              if(desks[row][col]!=null && desks[row][col].getOccupied() == false && !isNearbyDeskEmpty(row,col).equals("")){
-                flag = false;
-                desks[row][col].seat(newList.get(count));
-
-                System.out.println("seated in new pos");
-                dir = isNearbyDeskEmpty(row, col);
-                x = row;
-                y = col;
-              } 
-
-              
-              
-          }
-
-          if(dir.equals("Right") && desks[x][y+1]!=null){
-            desks[x][y+1].seat(findStudent(newList.get(count).getFriendID()));
-            System.out.println("r"); 
-          }
-          else if(dir.equals("Left") && desks[x][y-1]!=null){
-            desks[x][y-1].seat(findStudent(newList.get(count).getFriendID()));
-            System.out.println("l");
-          }
-          else if(dir.equals("Up") && desks[x-1][y]!=null){
-            desks[x-1][y].seat(findStudent(newList.get(count).getFriendID()));
-            System.out.println("u");
-
-          }
-          else if (dir.equals("Down") && desks[x+1][y]!=null){
-            desks[x+1][y].seat(findStudent(newList.get(count).getFriendID()));
-            System.out.println("d");
-          }
-          count++;
-        }
       }
-    }
-    */
-      
-//     public void eliteSeating(double min) { [Karthik 6:45 PM method]
-//     ArrayList<Student> newList = new ArrayList<Student>();
+  }
 
-//     // Iterate over the studentList using an iterator to safely remove elements
-//     Iterator<Student> iterator = studentList.iterator();
-//     while (iterator.hasNext()) {
-//         Student student = iterator.next();
-//         if (student.getGrade() >= min) {
-//             newList.add(student);
-//             iterator.remove();
-//         }
-//     }
-
-//     int count = 0;
-//     while (count < newList.size()) {
-//         System.out.println("loop has been ran");
-//         int row = newList.get(count).getWantedRow() - 1;
-//         int col = newList.get(count).getWantedCol() - 1;
-
-//         if (row >= 0 && col >= 0 && row < desks.length && col < desks[0].length &&
-//             desks[row][col] != null && !desks[row][col].getOccupied() && isNearbyDeskEmpty(row, col).equals("")) {
-            
-//             desks[row][col].seat(newList.get(count));
-//             System.out.println("seated");
-
-//             String dir = isNearbyDeskEmpty(row, col);
-//             if (dir.equals("Right") && col + 1 < desks[0].length && desks[row][col + 1] != null) {
-//                 desks[row][col + 1].seat(findStudent(newList.get(count).getFriendID()));
-//                 System.out.println("r");
-//             } else if (dir.equals("Left") && col - 1 >= 0 && desks[row][col - 1] != null) {
-//                 desks[row][col - 1].seat(findStudent(newList.get(count).getFriendID()));
-//                 System.out.println("l");
-//             } else if (dir.equals("Up") && row - 1 >= 0 && desks[row - 1][col] != null) {
-//                 desks[row - 1][col].seat(findStudent(newList.get(count).getFriendID()));
-//                 System.out.println("u");
-//             } else if (dir.equals("Down") && row + 1 < desks.length && desks[row + 1][col] != null) {
-//                 desks[row + 1][col].seat(findStudent(newList.get(count).getFriendID()));
-//                 System.out.println("d");
-//             }
-//             count++;
-//         } 
-//         else {
-//             System.out.println("spot taken!");
-//             boolean flag = true;
-//             int x = 0;
-//             int y = 0;
-//             String dir = "";
-
-//             while (flag) {
-//                 row = (int) (Math.random() * desks.length);
-//                 col = (int) (Math.random() * desks[0].length);
-
-//                 if (row >= 0 && col >= 0 && row < desks.length && col < desks[0].length &&
-//                     desks[row][col] != null && !desks[row][col].getOccupied() && isNearbyDeskEmpty(row, col).equals("")) {
-                    
-//                     flag = false;
-//                     desks[row][col].seat(newList.get(count));
-//                     System.out.println("seated in new pos");
-//                     dir = isNearbyDeskEmpty(row, col);
-//                     x = row;
-//                     y = col;
-//                 }
-//             }
-
-//             if (dir.equals("Right") && y + 1 < desks[0].length && desks[x][y + 1] != null) {
-//                 desks[x][y + 1].seat(findStudent(newList.get(count).getFriendID()));
-//                 System.out.println("r");
-//             } else if (dir.equals("Left") && y - 1 >= 0 && desks[x][y - 1] != null) {
-//                 desks[x][y - 1].seat(findStudent(newList.get(count).getFriendID()));
-//                 System.out.println("l");
-//             } else if (dir.equals("Up") && x - 1 >= 0 && desks[x - 1][y] != null) {
-//                 desks[x - 1][y].seat(findStudent(newList.get(count).getFriendID()));
-//                 System.out.println("u");
-//             } else if (dir.equals("Down") && x + 1 < desks.length && desks[x + 1][y] != null) {
-//                 desks[x + 1][y].seat(findStudent(newList.get(count).getFriendID()));
-//                 System.out.println("d");
-//             }
-//             count++;
-//         }
-//     }
-//     System.out.println("finished");
-
-       /* public void eliteSeating(double min) {
-    ArrayList<Student> newList = new ArrayList<Student>();
-
-    // Collect students with GPA above the minimum
-    for (int i = 0; i < studentList.size(); i++) {
-        if (studentList.get(i).getGrade() >= min) {
-            newList.add(studentList.get(i));
-        }
-    }
-    System.out.println("elite students found");
-
-    // Remove collected students from the original list
-    studentList.removeAll(newList);
-
-    // Iterate through the list of elite students
-    for (Student student : newList) {
-        boolean seated = false;
-        int row = student.getWantedRow() - 1;
-        int col = student.getWantedCol() - 1;
-
-        if (isValidSeat(row, col) && desks[row][col].getOccupied() == false && !isNearbyDeskEmpty(row, col).equals("")) {
-            desks[row][col].seat(student);
-            seatFriend(row, col, student.getFriendID());
-            seated = true;
-            System.out.println("seated");
-        } else {
-            // Try to find a random seat
-            while (!seated) {
-                row = (int) (Math.random() * desks.length);
-                col = (int) (Math.random() * desks[0].length);
-                if (isValidSeat(row, col) && desks[row][col].getOccupied() == false && !isNearbyDeskEmpty(row, col).equals("")) {
-                    desks[row][col].seat(student);
-                    seatFriend(row, col, student.getFriendID());
-                    seated = true;
-                    System.out.println("seated in new pos");
-                }
-            }
-        }
-    }
-
-    System.out.println("finished");
-}
-*/
-
-public void eliteSeating(double min) {
-    ArrayList<Student> newList = new ArrayList<>();
-
-    // Collect students with GPA above the minimum
-    for (int i = 0; i < studentList.size(); i++) {
-        if (studentList.get(i).getGrade() >= min) {
-            newList.add(studentList.get(i));
-        }
-    }
-    System.out.println("elite students found");
-
-    // Remove collected students from the original list
-    studentList.removeAll(newList);
-
-    // Iterate through the list of elite students
-    for (Student student : newList) {
-        boolean seated = false;
-        int row = student.getWantedRow() - 1;
-        int col = student.getWantedCol() - 1;
-
-        if (isValidSeat(row, col) && !desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).isEmpty()) {
-            desks[row][col].seat(student);
-            seatFriend(row, col, student.getFriendID());
-            seated = true;
-            System.out.println("seated");
-        } else {
-            // Try to find a random seat
-            while (!seated) {
-                row = (int) (Math.random() * desks.length);
-                col = (int) (Math.random() * desks[0].length);
-                if (isValidSeat(row, col) && !desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).isEmpty()) {
-                    desks[row][col].seat(student);
-                    seatFriend(row, col, student.getFriendID());
-                    seated = true;
-                    System.out.println("seated in new pos");
-                }
-            }
-        }
-    }
-
-    System.out.println("finished");
+  System.out.println("Finished seating all students");
 }
 
 private boolean isValidSeat(int row, int col) {
@@ -543,23 +348,23 @@ private void seatFriend(int row, int col, String friendID) {
             if (desks[row][col]!=null && desks[row][col].getStudent().getID().equals(soughtID) &&desks[row][col].getOccupied() && !isNearbyDeskEmpty(row, col).equals("")){
               currFriendID = desks[row][col].getStudent().getFriendID();
             
-              if (isNearbyDeskEmpty(row, col).equals("Right") && (col+2)<desks[0].length){
-                desks[row][col+2].seat(findStudent(currFriendID));
+              if (isNearbyDeskEmpty(row, col).equals("Right") && (col+1)<desks[0].length){
+                desks[row][col+1].seat(findStudent(currFriendID));
                 studentList.remove(findStudent(currFriendID));
                 break;
               }
-              else if (isNearbyDeskEmpty(row, col).equals("Left") && (col-2)>-1){
-                desks[row][col-2].seat(findStudent(currFriendID));
+              else if (isNearbyDeskEmpty(row, col).equals("Left") && (col-1)>-1){
+                desks[row][col-1].seat(findStudent(currFriendID));
                 studentList.remove(findStudent(currFriendID));
                 break;
               }
-              else if (isNearbyDeskEmpty(row, col).equals("Down") && (row+2)<desks.length){
-                desks[row+2][col].seat(findStudent(currFriendID));
+              else if (isNearbyDeskEmpty(row, col).equals("Down") && (row+1)<desks.length){
+                desks[row+1][col].seat(findStudent(currFriendID));
                 studentList.remove(findStudent(currFriendID));
                 break;
               }
-              else if (isNearbyDeskEmpty(row,col).equals("Up") && (row-2)>-1){
-                desks[row-2][col].seat(findStudent(currFriendID));
+              else if (isNearbyDeskEmpty(row,col).equals("Up") && (row-1)>-1){
+                desks[row-1][col].seat(findStudent(currFriendID));
                 studentList.remove(findStudent(currFriendID));
                 break;
               }
@@ -590,21 +395,21 @@ public String isNearbyDeskEmpty(int r, int c) {
   }
 
   
-  boolean canCheckRight = c + 2 < desks[0].length;
-  boolean canCheckLeft = c - 2 >= 0;
-  boolean canCheckUp = r - 2 >= 0;
-  boolean canCheckDown = r + 2 < desks.length;
+  boolean canCheckRight = c + 1 < desks[0].length;
+  boolean canCheckLeft = c - 1 >= 0;
+  boolean canCheckUp = r - 1 >= 0;
+  boolean canCheckDown = r + 1 < desks.length;
 
-  if (canCheckRight && desks[r][c+2] != null && !desks[r][c+2].getOccupied() && desks[r][c+1] == null) {
+  if (canCheckRight && desks[r][c+1] != null && !desks[r][c+1].getOccupied()) {
       return "Right";
   }
-  if (canCheckLeft && desks[r][c-2] != null && !desks[r][c-2].getOccupied() && desks[r][c-1] == null) {
+  if (canCheckLeft && desks[r][c-1] != null && !desks[r][c-1].getOccupied()) {
       return "Left";
   }
-  if (canCheckUp && desks[r-2][c] != null && !desks[r-2][c].getOccupied() && desks[r-1][c] == null) {
+  if (canCheckUp && desks[r-1][c] != null && !desks[r-1][c].getOccupied()) {
       return "Up";
   }
-  if (canCheckDown && desks[r+2][c] != null && !desks[r+2][c].getOccupied() && desks[r+1][c] == null) {
+  if (canCheckDown && desks[r+1][c] != null && !desks[r+1][c].getOccupied()) {
       return "Down";
   }
 
