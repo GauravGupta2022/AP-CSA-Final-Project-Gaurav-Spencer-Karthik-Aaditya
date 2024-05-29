@@ -4,7 +4,7 @@ R211
 6 rows
 6 columns
 30 desks
-XOOOOO
+OXOOOO
 OXOOOO
 OOXOOO
 OOOXOO
@@ -148,23 +148,23 @@ no
 Yes
 no
 no
-yes
+No
 no
 yes
 no
-yes
-no
-no
-yes
-no
-yes
-no
-yes
+No
 no
 no
 yes
 no
 yes
+no
+no
+no
+no
+yes
+no
+no
 no
 
 no
@@ -176,24 +176,24 @@ No
 no
 yes
 no
-Yes
+No
 NO
 no
 yes
 no
-yes
+No
 no
 yes
 no
 no
-yes
+No
+no
+no
 no
 yes
 no
-yes
 no
 no
-yes
 no
 yes
 no
@@ -321,4 +321,3 @@ no
 2
 1
 2
-
