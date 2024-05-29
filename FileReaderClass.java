@@ -23,7 +23,6 @@ public class FileReaderClass {
      ArrayList<Student> students = new ArrayList<Student>();
      int numInGroup = -1; //group seating
  
-     System.out.println("Start of textfile reading");
      try {
        //filereader creation
        File teacherFile = new File(textFileName);
@@ -66,14 +65,14 @@ public class FileReaderClass {
        
        
      } catch (NumberFormatException e) {
-       System.out.println("There was error with INPUT!");
+       //System.out.println("There was error with INPUT!");
      } catch (NullPointerException e){
        // System.out.println("An object was not initialized properly (NullPointerException)");
      } catch (ArrayIndexOutOfBoundsException e){
-       System.out.println("Your inputs did not match the number of arguments (AIOOBE)");
+       //System.out.println("Your inputs did not match the number of arguments (AIOOBE)");
      }
      catch (Exception e) {
-       System.out.println("There was an unexpected error!");
+       //System.out.println("There was an unexpected error!");
      }
 
 	 Classroom classroom;
