@@ -7,6 +7,10 @@ public class Desk {
         occupied = false;
         this.student = new Student();
     }
+
+    public void setStudent(Student student){
+        this.student = student;
+    }
   
     public boolean getOccupied() {
         return occupied;
